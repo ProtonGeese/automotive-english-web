@@ -4,21 +4,21 @@ import Paper from 'material-ui/Paper';
 import HondaBar from './bar.jsx';
 
 const paper_style = {
-  "max-width": "80rem",
+  "maxWidth": "80rem",
   "margin": "auto",
   "padding": "2rem",
-  "margin-top": "1rem"
+  "marginTop": "1rem"
 }
 
 const container_style = {
   "display": "flex",
-  "flex-direction": "column",
-  "min-height": "100vh"
+  "flexDirection": "column",
+  "minHeight": "100vh"
 }
 
 const footer_style = {
-  "margin-top": "auto",
-  "text-align": "center",
+  "marginTop": "auto",
+  "textAlign": "center",
   "height": "4rem",
   "background": "#212121",
   "color": "#FAFAFA",
@@ -27,7 +27,7 @@ const footer_style = {
 const cc_style = {
   "margin": "0rem",
   "padding": "0rem",
-  "margin-top": "1.5rem"
+  "marginTop": "1.5rem"
 }
 
 const AppContainer = (props) => (

@@ -9,13 +9,16 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import { Link } from 'react-router'
 
-const Hondastudent = () => (
+const HondaStudents = () => (
   <div>
     <Toolbar>
       <ToolbarGroup>
-       <FlatButton label="New User" primary={true}/>
-       <FlatButton label="Edit User"/>
-       <FlatButton label="Delete User" secondary={true}/>
+        <FlatButton 
+          label="New User" primary={true}
+          containerElement={<Link to="/students/new" />}
+        />
+        <FlatButton label="Edit User"/>
+        <FlatButton label="Delete User" secondary={true}/>
       </ToolbarGroup>
       <ToolbarGroup>
         <IconMenu
@@ -87,4 +90,4 @@ const Hondastudent = () => (
   </div>
 );
 
-export default Hondastudent;
+export default HondaStudents;

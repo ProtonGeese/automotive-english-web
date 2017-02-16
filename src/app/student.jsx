@@ -16,7 +16,7 @@ const button_style = {
 }
 
 const check_style = {
-  "margin-top": "1rem"
+  "marginTop": "1rem"
 }
 
 const HondaStudentNew = () => (
