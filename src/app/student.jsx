@@ -7,28 +7,21 @@ import MenuItem from 'material-ui/MenuItem';
 import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
 import TextField from 'material-ui/TextField';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+import Paper from 'material-ui/Paper';
+import RaisedButton from 'material-ui/RaisedButton';
+import Checkbox from 'material-ui/Checkbox';
+
+const button_style = {
+  "margin": "12px"
+}
+
+const check_style = {
+  "margin-top": "1rem"
+}
 
 const HondaStudentNew = () => (
   <div>
-    <Toolbar>
-      <ToolbarGroup>
-       <FlatButton label="New User" primary={true}/>
-       <FlatButton label="Edit User"/>
-       <FlatButton label="Delete User" secondary={true}/>
-      </ToolbarGroup>
-      <ToolbarGroup>
-        <IconMenu
-          iconButtonElement={
-            <IconButton touch={true}>
-              <NavigationExpandMoreIcon/>
-            </IconButton>
-          }
-        >
-          <MenuItem primaryText="Export as…"/>
-          <MenuItem primaryText="Help"/>
-        </IconMenu>
-      </ToolbarGroup>
-    </Toolbar>
+    <h2>Create a new user.</h2>
     <TextField
       floatingLabelText="Name"
     /><br/>
@@ -38,8 +31,21 @@ const HondaStudentNew = () => (
     <TextField
       floatingLabelText="Password"
       type="password"
-    />
-    </div>
+    /><br/>
+    <TextField
+      floatingLabelText="Confirm Password"
+      type="password"
+    /><br/>
+    <TextField
+      floatingLabelText="Section"
+    /><br/>
+    <Checkbox
+      label="Notify student with their account credentials."
+      style={check_style}
+    /><br/>
+    <RaisedButton label="Save" primary={true} style={button_style} />
+    <RaisedButton label="Cancel" style={button_style} />
+  </div>
 );
 
 export default HondaStudentNew;

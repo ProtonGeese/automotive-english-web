@@ -8,7 +8,6 @@ export default class HondaBar extends React.Component {
   constructor(props) {
     super(props);
 
-    // The state of the drawer.
     this.state = {
       open: false
     };
@@ -23,7 +22,7 @@ export default class HondaBar extends React.Component {
       <div>
         <AppBar
           title="Honda Automotive"
-          zDepth="1"
+          zDepth={1}
           onLeftIconButtonTouchTap={this.handleToggle}
         />
         <Drawer
@@ -31,6 +30,10 @@ export default class HondaBar extends React.Component {
           open={this.state.open}
           onRequestChange={(open) => this.setState({open})}
         >
+          <MenuItem
+            primaryText="Home"
+            containerElement={<Link to="/" />}
+          />
           <MenuItem
             primaryText="Students"
             containerElement={<Link to="/students" />}

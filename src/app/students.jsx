@@ -7,8 +7,9 @@ import MenuItem from 'material-ui/MenuItem';
 import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+import { Link } from 'react-router'
 
-const HondaStudents = () => (
+const Hondastudent = () => (
   <div>
     <Toolbar>
       <ToolbarGroup>
@@ -43,7 +44,7 @@ const HondaStudents = () => (
       <TableBody>
         <TableRow>
           <TableRowColumn>1</TableRowColumn>
-          <TableRowColumn>John Smith</TableRowColumn>
+          <TableRowColumn><Link to="/student/1">John Smith</Link></TableRowColumn>
           <TableRowColumn>Student</TableRowColumn>
           <TableRowColumn><Mailto email="smith.1@osu.edu">smith.1@osu.edu</Mailto></TableRowColumn>
           <TableRowColumn>85%</TableRowColumn>
@@ -51,7 +52,7 @@ const HondaStudents = () => (
         </TableRow>
         <TableRow>
           <TableRowColumn>2</TableRowColumn>
-          <TableRowColumn>Randal White</TableRowColumn>
+          <TableRowColumn><Link to="/student/2">Randal White</Link></TableRowColumn>
           <TableRowColumn>Student</TableRowColumn>
           <TableRowColumn><Mailto email="white.1@osu.edu">white.1@osu.edu</Mailto></TableRowColumn>
           <TableRowColumn>92%</TableRowColumn>
@@ -59,7 +60,7 @@ const HondaStudents = () => (
         </TableRow>
         <TableRow>
           <TableRowColumn>3</TableRowColumn>
-          <TableRowColumn>Maria Sanders</TableRowColumn>
+          <TableRowColumn><Link to="/student/3">Maria Sanders</Link></TableRowColumn>
           <TableRowColumn>Student</TableRowColumn>
           <TableRowColumn><Mailto email="sanders.1@osu.edu">sanders.1@osu.edu</Mailto></TableRowColumn>
           <TableRowColumn>79%</TableRowColumn>
@@ -67,7 +68,7 @@ const HondaStudents = () => (
         </TableRow>
         <TableRow>
           <TableRowColumn>4</TableRowColumn>
-          <TableRowColumn>Steve Brown</TableRowColumn>
+          <TableRowColumn><Link to="/student/4">Steve Brown</Link></TableRowColumn>
           <TableRowColumn>Student</TableRowColumn>
           <TableRowColumn><Mailto email="brown.1@osu.edu">brown.1@osu.edu</Mailto></TableRowColumn>
           <TableRowColumn>56%</TableRowColumn>
@@ -75,7 +76,7 @@ const HondaStudents = () => (
         </TableRow>
         <TableRow>
           <TableRowColumn>5</TableRowColumn>
-          <TableRowColumn>Joey Chagnon</TableRowColumn>
+          <TableRowColumn><Link to="/student/5">Joey Chagnon</Link></TableRowColumn>
           <TableRowColumn>Student</TableRowColumn>
           <TableRowColumn><Mailto email="chagnon.5@osu.edu">chagnon.5@osu.edu</Mailto></TableRowColumn>
           <TableRowColumn>100%</TableRowColumn>
@@ -86,4 +87,4 @@ const HondaStudents = () => (
   </div>
 );
 
-export default HondaStudents;
+export default Hondastudent;

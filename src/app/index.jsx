@@ -14,7 +14,7 @@ injectTapEventPlugin();
 const App = () => (
   <Router history={hashHistory}>
     <Route path="/" component={AppContainer}>
-      <Route path="/" component={HondaStudents}/>
+      <Route path="dashboard" component={HondaStudents}/>
       <Route path="students" component={HondaStudents}/>
       <Route path="students/new" component={HondaStudentNew}/>
       <Route path="conversations" component={HondaConversations}/>
