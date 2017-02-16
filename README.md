@@ -21,3 +21,23 @@ npm install
 ```bash
 npm run build
 ```
+
+* Continuously build the site whenever it changes.
+
+```bash
+npm run build:watch
+```
+
+## Testing
+
+* Run provided tests
+
+```bash
+npm run test
+```
+
+* Continuously test whenever there are changes.
+
+```bash
+npm run test:watch
+```
