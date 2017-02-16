@@ -41,3 +41,7 @@ npm run test
 ```bash
 npm run test:watch
 ```
+
+## Viewing
+
+This site is a single page application. Just open the file `src/index.html` in your browser.
