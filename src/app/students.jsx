@@ -9,16 +9,33 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import { Link } from 'react-router'
 
+import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh';
+import ActionDeleteForever from 'material-ui/svg-icons/action/delete-forever';
+import ImageEdit from 'material-ui/svg-icons/image/edit';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+
 const HondaStudents = () => (
   <div>
     <Toolbar>
       <ToolbarGroup>
         <FlatButton 
           label="New User" primary={true}
+          icon={<ContentAdd/>}
           containerElement={<Link to="/students/new" />}
         />
-        <FlatButton label="Edit User"/>
-        <FlatButton label="Delete User" secondary={true}/>
+        <FlatButton
+          label="Edit User"
+          icon={<ImageEdit/>}
+        />
+        <FlatButton
+          label="Delete User"
+          icon={<ActionDeleteForever/>}
+          secondary={true}
+        />
+        <FlatButton
+          label="Refresh"
+          icon={<NavigationRefresh/>}
+        />
       </ToolbarGroup>
       <ToolbarGroup>
         <IconMenu
