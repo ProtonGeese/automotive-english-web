@@ -2,7 +2,7 @@ import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
-import { Link } from 'react-router'
+import { Link } from 'react-router';
 
 export default class HondaBar extends React.Component {
   constructor(props) {

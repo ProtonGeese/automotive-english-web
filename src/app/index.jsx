@@ -6,6 +6,7 @@ import AppContainer from './container.jsx';
 import HondaStudents from './students.jsx';
 import HondaStudentNew from './student.jsx';
 import HondaConversations from './conversations.jsx';
+import PostNew from './conversation.jsx';
 import HondaHome from './home.jsx';
 
 // Needed for onTouchTap
@@ -19,6 +20,7 @@ const App = () => (
       <Route path="students" component={HondaStudents}/>
       <Route path="students/new" component={HondaStudentNew}/>
       <Route path="conversations" component={HondaConversations}/>
+      <Route path="conversations/new" component={PostNew}/>
     </Route>
   </Router>
 );
