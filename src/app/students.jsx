@@ -1,5 +1,6 @@
 import React from 'react';
 import Mailto from 'react-mailto';
+import { hashHistory } from 'react-router';
 import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
@@ -25,9 +26,48 @@ class HondaStudents extends React.Component {
       selectedRows: [],
       confirmDelete: false,
       snackbarOpen: false,
-      snackbarMessage: "Error, this message should not be seen."
+      snackbarMessage: "Error, this message should not be seen.",
+      tableData: [
+        {
+          id: 1,
+          name: "John Smith",
+          role: "Student",
+          email: "smith.1@osu.edu",
+          grade: "85%"
+        },
+        {
+          id: 2,
+          name: "Randal White",
+          role: "Student",
+          email: "white.7@osu.edu",
+          grade: "92%"
+        },
+        {
+          id: 3,
+          name: "Maria Sanders",
+          role: "Student",
+          email: "sanders.13@osu.edu",
+          grade: "72%"
+        },
+        {
+          id: 4,
+          name: "Steve Brown",
+          role: "Student",
+          email: "brown.9@osu.edu",
+          grade: "92%"
+        },
+        {
+          id: 5,
+          name: "Joey Chagnon",
+          role: "Student",
+          email: "chagnon.5@osu.edu",
+          grade: "100%"
+        }
+      ]
     }
+
     this.handleRowSelection = this.handleRowSelection.bind(this);
+    this.handleEditRequest = this.handleEditRequest.bind(this);
     this.handleDeleteRequest = this.handleDeleteRequest.bind(this);
     this.handleDeleteCancel = this.handleDeleteCancel.bind(this);
     this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this);
@@ -66,6 +106,10 @@ class HondaStudents extends React.Component {
     this.setState({
       confirmDelete: true
     });
+  }
+
+  handleEditRequest() {
+    hashHistory.push("/student/" + this.state.tableData[this.state.selectedRows].id + "/edit");
   }
 
   handleSnackbarClose() {
@@ -114,13 +158,14 @@ class HondaStudents extends React.Component {
               label="Edit User"
               icon={<ImageEdit/>}
               disabled={!this.state.hasSelection}
+              onTouchTap={this.handleEditRequest}
             />
             <FlatButton
               label="Delete User"
               icon={<ActionDeleteForever/>}
               secondary={true}
               disabled={!this.state.hasSelection}
-              onClick={this.handleDeleteRequest}
+              onTouchTap={this.handleDeleteRequest}
             />
             <FlatButton
               label="Refresh"
@@ -156,46 +201,16 @@ class HondaStudents extends React.Component {
           <TableBody
             deselectOnClickaway={false}
           >
-            <TableRow>
-              <TableRowColumn>1</TableRowColumn>
-              <TableRowColumn><Link to="/student/1">John Smith</Link></TableRowColumn>
-              <TableRowColumn>Student</TableRowColumn>
-              <TableRowColumn><Mailto email="smith.1@osu.edu">smith.1@osu.edu</Mailto></TableRowColumn>
-              <TableRowColumn>85%</TableRowColumn>
-              <TableRowColumn><FlatButton label="Details"/></TableRowColumn>
-            </TableRow>
-            <TableRow>
-              <TableRowColumn>2</TableRowColumn>
-              <TableRowColumn><Link to="/student/2">Randal White</Link></TableRowColumn>
-              <TableRowColumn>Student</TableRowColumn>
-              <TableRowColumn><Mailto email="white.1@osu.edu">white.1@osu.edu</Mailto></TableRowColumn>
-              <TableRowColumn>92%</TableRowColumn>
-              <TableRowColumn><FlatButton label="Details"/></TableRowColumn>
-            </TableRow>
-            <TableRow>
-              <TableRowColumn>3</TableRowColumn>
-              <TableRowColumn><Link to="/student/3">Maria Sanders</Link></TableRowColumn>
-              <TableRowColumn>Student</TableRowColumn>
-              <TableRowColumn><Mailto email="sanders.1@osu.edu">sanders.1@osu.edu</Mailto></TableRowColumn>
-              <TableRowColumn>79%</TableRowColumn>
-              <TableRowColumn><FlatButton label="Details"/></TableRowColumn>
-            </TableRow>
-            <TableRow>
-              <TableRowColumn>4</TableRowColumn>
-              <TableRowColumn><Link to="/student/4">Steve Brown</Link></TableRowColumn>
-              <TableRowColumn>Student</TableRowColumn>
-              <TableRowColumn><Mailto email="brown.1@osu.edu">brown.1@osu.edu</Mailto></TableRowColumn>
-              <TableRowColumn>56%</TableRowColumn>
-              <TableRowColumn><FlatButton label="Details"/></TableRowColumn>
-            </TableRow>
-            <TableRow>
-              <TableRowColumn>5</TableRowColumn>
-              <TableRowColumn><Link to="/student/5">Joey Chagnon</Link></TableRowColumn>
-              <TableRowColumn>Student</TableRowColumn>
-              <TableRowColumn><Mailto email="chagnon.5@osu.edu">chagnon.5@osu.edu</Mailto></TableRowColumn>
-              <TableRowColumn>100%</TableRowColumn>
-              <TableRowColumn><FlatButton label="Details"/></TableRowColumn>
-            </TableRow>
+            {this.state.tableData.map( (row, index) => (
+              <TableRow key={index}>
+                <TableRowColumn>{row.id}</TableRowColumn>
+                <TableRowColumn><Link to={"/student/" + row.id}>{row.name}</Link></TableRowColumn>
+                <TableRowColumn>{row.role}</TableRowColumn>
+                <TableRowColumn><Mailto email={row.email}>{row.email}</Mailto></TableRowColumn>
+                <TableRowColumn>{row.grade}</TableRowColumn>
+                <TableRowColumn><FlatButton label="Details"/></TableRowColumn>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </div>

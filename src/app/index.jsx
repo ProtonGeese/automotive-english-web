@@ -5,6 +5,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import AppContainer from './container.jsx';
 import HondaStudents from './students.jsx';
 import HondaStudentNew from './student.jsx';
+import HondaStudentEdit from './student_edit.jsx';
 import HondaConversations from './conversations.jsx';
 import PostNew from './conversation.jsx';
 import HondaHome from './home.jsx';
@@ -49,6 +50,7 @@ class App extends React.Component {
           <IndexRoute component={HondaHome}/>
           <Route path="students" component={HondaStudents}/>
           <Route path="students/new" component={HondaStudentNew}/>
+          <Route path="student/:userId/edit" component={HondaStudentEdit}/>
           <Route path="conversations" component={HondaConversations}/>
           <Route path="conversations/new" component={PostNew}/>
         </Route>
