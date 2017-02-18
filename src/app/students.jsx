@@ -31,6 +31,7 @@ class HondaStudents extends React.Component {
     this.handleDeleteRequest = this.handleDeleteRequest.bind(this);
     this.handleDeleteCancel = this.handleDeleteCancel.bind(this);
     this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this);
+    this.handleSnackbarClose = this.handleSnackbarClose.bind(this);
   }
 
   handleRowSelection(selectedRows) {
@@ -67,6 +68,12 @@ class HondaStudents extends React.Component {
     });
   }
 
+  handleSnackbarClose() {
+    this.setState({
+      snackbarOpen: false
+    });
+  }
+
   render() {
     const confirmDeleteActions = [
       <FlatButton
@@ -94,6 +101,7 @@ class HondaStudents extends React.Component {
           open={this.state.snackbarOpen}
           message={this.state.snackbarMessage}
           autoHideDuration={4000}
+          onRequestClose={this.handleSnackbarClose}
         />
         <Toolbar>
           <ToolbarGroup>
