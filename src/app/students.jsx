@@ -7,6 +7,8 @@ import MenuItem from 'material-ui/MenuItem';
 import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+import Dialog from 'material-ui/Dialog';
+import Snackbar from 'material-ui/Snackbar';
 import { Link } from 'react-router'
 
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh';
@@ -19,26 +21,80 @@ class HondaStudents extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      hasSelection: false
+      hasSelection: false,
+      selectedRows: [],
+      confirmDelete: false,
+      snackbarOpen: false,
+      snackbarMessage: "Error, this message should not be seen."
     }
     this.handleRowSelection = this.handleRowSelection.bind(this);
+    this.handleDeleteRequest = this.handleDeleteRequest.bind(this);
+    this.handleDeleteCancel = this.handleDeleteCancel.bind(this);
+    this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this);
   }
 
   handleRowSelection(selectedRows) {
     if (selectedRows.length === 0) {
       this.setState({
-        hasSelection: false
+        hasSelection: false,
+        selectedRows: []
       });
     } else {
       this.setState({
-        hasSelection: true
+        hasSelection: true,
+        selectedRows: selectedRows
       });
     }
   }
 
+  handleDeleteCancel() {
+    this.setState({
+      confirmDelete: false
+    });
+  }
+
+  handleDeleteConfirm() {
+    this.setState({
+      confirmDelete: false,
+      snackbarOpen: true,
+      snackbarMessage: "User successfully deleted."
+    });
+  }
+
+  handleDeleteRequest() {
+    this.setState({
+      confirmDelete: true
+    });
+  }
+
   render() {
+    const confirmDeleteActions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleDeleteCancel}
+      />,
+      <FlatButton
+        label="Confirm"
+        primary={true}
+        onTouchTap={this.handleDeleteConfirm}
+      />
+    ];
+
     return (
       <div>
+        <Dialog
+          actions={confirmDeleteActions}
+          modal={false}
+          open={this.state.confirmDelete}
+        >
+          <p>Are you sure, this action cannot be undone.</p>
+        </Dialog>
+        <Snackbar
+          open={this.state.snackbarOpen}
+          message={this.state.snackbarMessage}
+          autoHideDuration={4000}
+        />
         <Toolbar>
           <ToolbarGroup>
             <FlatButton 
@@ -56,6 +112,7 @@ class HondaStudents extends React.Component {
               icon={<ActionDeleteForever/>}
               secondary={true}
               disabled={!this.state.hasSelection}
+              onClick={this.handleDeleteRequest}
             />
             <FlatButton
               label="Refresh"
