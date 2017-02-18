@@ -9,7 +9,7 @@ import HondaConversations from './conversations.jsx';
 import PostNew from './conversation.jsx';
 import HondaHome from './home.jsx';
 import HondaLogin from './login.jsx';
-import { login, isLoggedIn } from './auth.jsx';
+import { isLoggedIn } from './auth.jsx';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -18,28 +18,35 @@ injectTapEventPlugin();
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.requireAuth = this.requireAuth.bind(this);
+    this.requireAuthEnter = this.requireAuthEnter.bind(this);
+    this.requireAuthChange = this.requireAuthEnter.bind(this);
   }
 
-  requireAuth(nextState, replace) {
-    if (isLoggedIn && nextState.location.pathname !== '/login') {
-      replace({
-        pathname: '/login',
-        state: { nextPathname: nextState.location.pathname }
-      });
+  requireAuthEnter(nextState, replace) {
+    if (!isLoggedIn()) {
+      replace('/login');
+    }
+  }
+
+  requireAuthChange(prevState, nextState, replace) {
+    if (!isLoggedIn()) {
+      replace('/login');
     }
   }
 
   render() {
     return (
       <Router history={hashHistory}>
+        <Route path="/login" component={AppContainer}>
+          <IndexRoute component={HondaLogin}/>
+        </Route>
         <Route
           path="/"
           component={AppContainer}
-          onEnter={this.requireAuth}
+          onEnter={this.requireAuthEnter}
+          onChange={this.requireAuthChange}
         >
           <IndexRoute component={HondaHome}/>
-          <Route path="login" component={HondaLogin}/>
           <Route path="students" component={HondaStudents}/>
           <Route path="students/new" component={HondaStudentNew}/>
           <Route path="conversations" component={HondaConversations}/>
