@@ -28,7 +28,9 @@ export default class HondaLogin extends React.Component {
 
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      buttonText: "Login",
+      buttonEnabled: true
     }
 
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
@@ -49,12 +51,21 @@ export default class HondaLogin extends React.Component {
   }
 
   handleLoginRequest() {
+    this.setState({
+      buttonText: "Signing in…",
+      buttonEnabled: false
+    });
+
     login(this.state.username, this.state.password, {
       onSuccess: (res) => {
         hashHistory.push('/');
       },
       onFailure: (err) => {
         alert(err);
+        this.setState({
+          buttonText: "Login",
+          buttonEnabled: true
+        });
       }
     });
   }
@@ -73,8 +84,9 @@ export default class HondaLogin extends React.Component {
           onChange={this.handlePasswordChange}
         /><br/>
         <RaisedButton
-          label="Login"
+          label={this.state.buttonText}
           primary={true}
+          disabled={!this.state.buttonEnabled}
           style={button_style}
           onTouchTap={this.handleLoginRequest}
         />
