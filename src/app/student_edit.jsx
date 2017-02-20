@@ -34,6 +34,8 @@ export default class HondaStudentEdit extends React.Component {
     super(props);
     this.state = {
       completed: 0,
+      saveEnabled: true,
+      saveMessage: "Save",
       progressHidden: true,
       snackbarOpen: false,
       snackbarMessage: "Error, this message should not be seen.",
@@ -45,6 +47,8 @@ export default class HondaStudentEdit extends React.Component {
 
   async handleSaveRequest() {
     this.setState({
+      saveEnabled: false,
+      saveMessage: "Saving...",
       progressHidden: false
     });
 
@@ -64,6 +68,9 @@ export default class HondaStudentEdit extends React.Component {
 
     setTimeout(() => {
       this.setState({
+        saveEnabled: true,
+        saveMessage: "Save",
+        progressHidden: true,
         progressHidden: true,
         completed: 0
       });
@@ -102,12 +109,17 @@ export default class HondaStudentEdit extends React.Component {
           style={check_style}
         /><br/>
         <RaisedButton
-          label="Save"
+          label={this.state.saveMessage}
           primary={true}
+          disabled={!this.state.saveEnabled}
           style={button_style}
           onTouchTap={this.handleSaveRequest}
         />
-        <RaisedButton label="Cancel" style={button_style} />
+        <RaisedButton
+          label="Cancel"
+          disabled={!this.state.saveEnabled}
+          style={button_style}
+        />
         {
           this.state.progressHidden
             ? null
