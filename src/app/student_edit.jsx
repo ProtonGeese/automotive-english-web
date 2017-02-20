@@ -79,7 +79,7 @@ export default class HondaStudentEdit extends React.Component {
   render() {
     return (
       <div>
-        <h2>Create a new user.</h2>
+        <h2>Edit a user.</h2>
         <TextField
           floatingLabelText="Name"
         /><br/>
