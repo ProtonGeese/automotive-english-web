@@ -22,28 +22,63 @@ const check_style = {
   "marginTop": "1rem"
 }
 
-function handleLoginRequest() {
-  login();
-  hashHistory.push('/');
+export default class HondaLogin extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      username: "",
+      password: ""
+    }
+
+    this.handleUsernameChange = this.handleUsernameChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handleLoginRequest = this.handleLoginRequest.bind(this);
+  }
+
+  handleUsernameChange(event, newValue) {
+    this.setState({
+      username: newValue
+    });
+  }
+
+  handlePasswordChange(event, newValue) {
+    this.setState({
+      password: newValue
+    });
+  }
+
+  handleLoginRequest() {
+    login(this.state.username, this.state.password, {
+      onSuccess: (res) => {
+        hashHistory.push('/');
+      },
+      onFailure: (err) => {
+        alert(err);
+      }
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <h2>Login</h2>
+        <TextField
+          floatingLabelText="Email"
+          onChange={this.handleUsernameChange}
+        /><br/>
+        <TextField
+          floatingLabelText="Password"
+          type="password"
+          onChange={this.handlePasswordChange}
+        /><br/>
+        <RaisedButton
+          label="Login"
+          primary={true}
+          style={button_style}
+          onTouchTap={this.handleLoginRequest}
+        />
+      </div>
+    );
+  }
 }
-
-const HondaLogin = () => (
-  <div>
-    <h2>Login</h2>
-    <TextField
-      floatingLabelText="Email"
-    /><br/>
-    <TextField
-      floatingLabelText="Password"
-      type="password"
-    /><br/>
-    <RaisedButton
-      label="Login"
-      primary={true}
-      style={button_style}
-      onTouchTap={handleLoginRequest}
-    />
-  </div>
-);
-
-export default HondaLogin;
