@@ -139,7 +139,7 @@ class HondaStudents extends React.Component {
           modal={false}
           open={this.state.confirmDelete}
         >
-          <p>Are you sure, this action cannot be undone.</p>
+          <p>Are you sure? This action cannot be undone.</p>
         </Dialog>
         <Snackbar
           open={this.state.snackbarOpen}
