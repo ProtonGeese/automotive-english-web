@@ -67,5 +67,6 @@ export function isLoggedIn() {
 }
 
 export function logout() {
-  return authState.cognitoUser.signOut();
+  authState.cognitoUser.signOut();
+  authState.loggedIn = false;
 }

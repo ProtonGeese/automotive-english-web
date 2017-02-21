@@ -1,8 +1,11 @@
 import React from 'react';
+import { hashHistory } from 'react-router';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import FlatButton from 'material-ui/FlatButton';
 import { Link } from 'react-router';
+import { logout, isLoggedIn } from './auth.jsx';
 
 export default class HondaBar extends React.Component {
   constructor(props) {
@@ -17,6 +20,11 @@ export default class HondaBar extends React.Component {
 
   handleClose = () => this.setState({open: false});
 
+  handleSignOut = () => {
+    logout();
+    hashHistory.push('/login');
+  }
+
   render() {
     return (
       <div>
@@ -24,6 +32,14 @@ export default class HondaBar extends React.Component {
           title="Honda Automotive"
           zDepth={1}
           onLeftIconButtonTouchTap={this.handleToggle}
+          iconElementRight={
+            isLoggedIn()
+              ? <FlatButton
+                  label="Sign out"
+                  onTouchTap={this.handleSignOut}
+                />
+              : null
+          }
         />
         <Drawer
           docked={false}
