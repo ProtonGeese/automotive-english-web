@@ -30,7 +30,8 @@ export default class HondaLogin extends React.Component {
       username: "",
       password: "",
       buttonText: "Login",
-      buttonEnabled: true
+      buttonEnabled: true,
+      errorText: ""
     }
 
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
@@ -40,13 +41,15 @@ export default class HondaLogin extends React.Component {
 
   handleUsernameChange(event, newValue) {
     this.setState({
-      username: newValue
+      username: newValue,
+      errorText: ""
     });
   }
 
   handlePasswordChange(event, newValue) {
     this.setState({
-      password: newValue
+      password: newValue,
+      errorText: ""
     });
   }
 
@@ -61,10 +64,10 @@ export default class HondaLogin extends React.Component {
         hashHistory.push('/');
       },
       onFailure: (err) => {
-        alert(err);
         this.setState({
           buttonText: "Login",
-          buttonEnabled: true
+          buttonEnabled: true,
+          errorText: "Invalid username or password."
         });
       }
     });
@@ -77,11 +80,13 @@ export default class HondaLogin extends React.Component {
         <TextField
           floatingLabelText="Email"
           onChange={this.handleUsernameChange}
+          errorText={this.state.errorText}
         /><br/>
         <TextField
           floatingLabelText="Password"
           type="password"
           onChange={this.handlePasswordChange}
+          errorText={this.state.errorText}
         /><br/>
         <RaisedButton
           label={this.state.buttonText}
