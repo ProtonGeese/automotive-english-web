@@ -1,79 +1,66 @@
 import React from 'react';
 import { hashHistory } from 'react-router';
-import Mailto from 'react-mailto';
-import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton';
-import FlatButton from 'material-ui/FlatButton';
-import MenuItem from 'material-ui/MenuItem';
-import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
 import TextField from 'material-ui/TextField';
-import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
-import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
-import Checkbox from 'material-ui/Checkbox';
 import { login } from './auth.jsx';
 
-const button_style = {
-  "margin": "12px",
-  "float": "right"
-}
-
-const check_style = {
-  "marginTop": "1rem"
-}
-
 export default class HondaLogin extends React.Component {
+  static button_style = {
+    margin: '12px',
+    float: 'right'
+  }
+
+  static check_style = {
+    marginTop: '1rem'
+  }
+
   constructor(props) {
     super(props);
 
     this.state = {
-      username: "",
-      password: "",
-      buttonText: "Login",
+      username: '',
+      password: '',
+      buttonText: 'Login',
       buttonEnabled: true,
-      errorText: ""
-    }
-
-    this.handleUsernameChange = this.handleUsernameChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleLoginRequest = this.handleLoginRequest.bind(this);
+      errorText: ''
+    };
   }
 
-  handleUsernameChange(event, newValue) {
+  handleUsernameChange = (event, newValue) => {
     this.setState({
       username: newValue,
-      errorText: ""
+      errorText: ''
     });
   }
 
-  handlePasswordChange(event, newValue) {
+  handlePasswordChange = (event, newValue) => {
     this.setState({
       password: newValue,
-      errorText: ""
+      errorText: ''
     });
   }
 
-  handleLoginRequest() {
+  handleLoginRequest = () => {
     this.setState({
-      buttonText: "Signing in…",
+      buttonText: 'Signing in…',
       buttonEnabled: false
     });
 
     login(this.state.username, this.state.password, {
-      onSuccess: (res) => {
+      onSuccess: () => {
         hashHistory.push('/');
       },
-      onFailure: (err) => {
+      onFailure: () => {
         this.setState({
-          buttonText: "Login",
+          buttonText: 'Login',
           buttonEnabled: true,
-          errorText: "Invalid username or password."
+          errorText: 'Invalid username or password.'
         });
       }
     });
   }
 
-  render() {
+  render = () => {
     return (
       <div>
         <h2>Login</h2>
@@ -92,7 +79,7 @@ export default class HondaLogin extends React.Component {
           label={this.state.buttonText}
           primary={true}
           disabled={!this.state.buttonEnabled}
-          style={button_style}
+          style={this.static.button_style}
           onTouchTap={this.handleLoginRequest}
         />
       </div>
