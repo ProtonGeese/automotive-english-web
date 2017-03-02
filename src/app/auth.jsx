@@ -2,8 +2,7 @@ import { Config, CognitoIdentityCredentials } from "aws-sdk";
 import {
   AuthenticationDetails,
   CognitoUser,
-  CognitoUserPool,
-  CognitoUserAttribute,
+  CognitoUserPool, CognitoUserAttribute,
 } from "amazon-cognito-identity-js";
 
 var authState = {
@@ -57,6 +56,25 @@ export function login(username, password, options = {}) {
       // Call the onFailure hook.
       if ('onFailure' in options) {
         options.onFailure(err);
+      }
+    },
+    newPasswordRequired: function(userAttributes, requiredAttributes) {
+      if ('newPasswordRequired' in options) {
+        options.newPasswordRequired(function(newPassword, callback) {
+          authState.cognitoUser.completeNewPasswordChallenge(newPassword, null, {
+            onSuccess: (result) => {
+              authState.loggedIn = true;
+              if ('onSuccess' in callback) {
+                callback.onSuccess(result);
+              }
+            },
+            onFailure: (err) => {
+              if ('onFailure' in callback) {
+                callback.onFailure(err);
+              }
+            }
+          });
+        });
       }
     }
   });

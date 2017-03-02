@@ -22,7 +22,9 @@ export default class HondaLogin extends React.Component {
       password: '',
       buttonText: 'Login',
       buttonEnabled: true,
-      errorText: ''
+      errorText: '',
+      changePassword: false,
+      changePasswordCallback: null
     };
   }
 
@@ -56,6 +58,32 @@ export default class HondaLogin extends React.Component {
           buttonEnabled: true,
           errorText: 'Invalid username or password.'
         });
+      },
+      newPasswordRequired: (callback) => {
+        this.setState({
+          changePassword: true,
+          changePasswordCallback: callback,
+          buttonText: 'Update',
+          buttonEnabled: true
+        });
+      }
+    });
+  }
+
+  handleUpdatePasswordRequest = () => {
+    this.setState({
+      buttonEnabled: false
+    });
+
+    this.state.changePasswordCallback(this.state.password, {
+      onSuccess: () => {
+        hashHistory.push('/');
+      },
+      onFailure: (err) => {
+        this.setState({
+          errorText: err,
+          buttonEnabled: true
+        });
       }
     });
   }
@@ -63,25 +91,46 @@ export default class HondaLogin extends React.Component {
   render = () => {
     return (
       <div>
-        <h2>Login</h2>
-        <TextField
-          floatingLabelText="Email"
-          onChange={this.handleUsernameChange}
-          errorText={this.state.errorText}
-        /><br/>
-        <TextField
-          floatingLabelText="Password"
-          type="password"
-          onChange={this.handlePasswordChange}
-          errorText={this.state.errorText}
-        /><br/>
-        <RaisedButton
-          label={this.state.buttonText}
-          primary={true}
-          disabled={!this.state.buttonEnabled}
-          style={this.static.button_style}
-          onTouchTap={this.handleLoginRequest}
-        />
+        {!this.state.changePassword ?
+        <div>
+          <h2>Login</h2>
+          <TextField
+            floatingLabelText="Email"
+            onChange={this.handleUsernameChange}
+            errorText={this.state.errorText}
+          /><br/>
+          <TextField
+            floatingLabelText="Password"
+            type="password"
+            onChange={this.handlePasswordChange}
+            errorText={this.state.errorText}
+          /><br/>
+          <RaisedButton
+            label={this.state.buttonText}
+            primary={true}
+            disabled={!this.state.buttonEnabled}
+            style={this.button_style}
+            onTouchTap={this.handleLoginRequest}
+          />
+        </div>
+        :
+        <div>
+          <h2>Update your password.</h2>
+          <TextField
+            floatingLabelText="Password"
+            type="password"
+            onChange={this.handlePasswordChange}
+            errorText={this.state.errorText}
+          /><br/>
+          <RaisedButton
+            label={this.state.buttonText}
+            primary={true}
+            disabled={!this.state.buttonEnabled}
+            style={this.button_style}
+            onTouchTap={this.handleUpdatePasswordRequest}
+          />
+        </div>
+        }
       </div>
     );
   }
