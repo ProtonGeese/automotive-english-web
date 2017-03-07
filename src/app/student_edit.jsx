@@ -1,45 +1,38 @@
 import React from 'react';
-import Mailto from 'react-mailto';
-import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton';
-import FlatButton from 'material-ui/FlatButton';
-import MenuItem from 'material-ui/MenuItem';
-import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
 import TextField from 'material-ui/TextField';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
-import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import Checkbox from 'material-ui/Checkbox';
 import LinearProgress from 'material-ui/LinearProgress';
 import Snackbar from 'material-ui/Snackbar';
 
-const button_style = {
-  "margin": "12px"
-}
-
-const check_style = {
-  "marginTop": "1rem"
-}
-
-const progress_style = {
-  "marginTop": "1rem"
-}
-
-function sleep (time) {
-  return new Promise((resolve) => setTimeout(resolve, time));
-}
-
 export default class HondaStudentEdit extends React.Component {
+  static button_style = {
+    'margin': '12px'
+  }
+
+  static check_style = {
+    'marginTop': '1rem'
+  }
+
+  static progress_style = {
+    'marginTop': '1rem'
+  }
+
+  sleep(time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+  }
+
   constructor(props) {
     super(props);
     this.state = {
       completed: 0,
       saveEnabled: true,
-      saveMessage: "Save",
+      saveMessage: 'Save',
       progressHidden: true,
       snackbarOpen: false,
-      snackbarMessage: "Error, this message should not be seen.",
-    }
+      snackbarMessage: 'Error, this message should not be seen.',
+    };
 
     this.handleSaveRequest = this.handleSaveRequest.bind(this);
     this.handleSnackbarClose = this.handleSnackbarClose.bind(this);
@@ -48,29 +41,28 @@ export default class HondaStudentEdit extends React.Component {
   async handleSaveRequest() {
     this.setState({
       saveEnabled: false,
-      saveMessage: "Saving...",
+      saveMessage: 'Saving...',
       progressHidden: false
     });
 
-    await sleep(1000);
-    
+    await this.sleep(1000);
+ 
     this.setState({
       completed: 50
     });
 
-    await sleep(1000);
+    await this.sleep(1000);
     
     this.setState({
       completed: 100,
       snackbarOpen: true,
-      snackbarMessage: "User successfully saved."
+      snackbarMessage: 'User successfully saved.'
     });
 
     setTimeout(() => {
       this.setState({
         saveEnabled: true,
-        saveMessage: "Save",
-        progressHidden: true,
+        saveMessage: 'Save',
         progressHidden: true,
         completed: 0
       });
@@ -106,25 +98,25 @@ export default class HondaStudentEdit extends React.Component {
         /><br/>
         <Checkbox
           label="Notify student with their account credentials."
-          style={check_style}
+          style={this.check_style}
         /><br/>
         <RaisedButton
           label={this.state.saveMessage}
           primary={true}
           disabled={!this.state.saveEnabled}
-          style={button_style}
+          style={this.button_style}
           onTouchTap={this.handleSaveRequest}
         />
         <RaisedButton
           label="Cancel"
           disabled={!this.state.saveEnabled}
-          style={button_style}
+          style={this.button_style}
         />
         {
           this.state.progressHidden
             ? null
             : <LinearProgress
-              style={progress_style}
+              style={this.progress_style}
               mode="determinate"
               value={this.state.completed}
             />

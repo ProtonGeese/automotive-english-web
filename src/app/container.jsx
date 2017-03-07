@@ -4,31 +4,31 @@ import Paper from 'material-ui/Paper';
 import HondaBar from './bar.jsx';
 
 const paper_style = {
-  "maxWidth": "80rem",
-  "margin": "auto",
-  "padding": "2rem",
-  "marginTop": "1rem"
-}
+  'maxWidth': '80rem',
+  'margin': 'auto',
+  'padding': '2rem',
+  'marginTop': '1rem'
+};
 
 const container_style = {
-  "display": "flex",
-  "flexDirection": "column",
-  "minHeight": "100vh"
-}
+  'display': 'flex',
+  'flexDirection': 'column',
+  'minHeight': '100vh'
+};
 
 const footer_style = {
-  "marginTop": "auto",
-  "textAlign": "center",
-  "height": "4rem",
-  "background": "#212121",
-  "color": "#FAFAFA",
-}
+  'marginTop': 'auto',
+  'textAlign': 'center',
+  'height': '4rem',
+  'background': '#212121',
+  'color': '#FAFAFA',
+};
 
 const cc_style = {
-  "margin": "0rem",
-  "padding": "0rem",
-  "marginTop": "1.5rem"
-}
+  'margin': '0rem',
+  'padding': '0rem',
+  'marginTop': '1.5rem'
+};
 
 const AppContainer = (props) => (
   <MuiThemeProvider>

@@ -81,7 +81,7 @@ export default class HondaLogin extends React.Component {
       },
       onFailure: (err) => {
         this.setState({
-          errorText: err,
+          errorText: 'Could not set new password',
           buttonEnabled: true
         });
       }

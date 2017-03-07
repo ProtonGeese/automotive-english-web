@@ -13,8 +13,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Checkbox from 'material-ui/Checkbox';
 
 const style = {
-        margin: 12,
-        };
+  margin: 12,
+};
 
 export default class DialogExampleAlert extends React.Component {
   state = {
