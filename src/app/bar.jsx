@@ -5,7 +5,7 @@ import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
 import { Link } from 'react-router';
-import { logout, isLoggedIn } from './auth.jsx';
+import { logout, isLoggedIn } from './models/auth.jsx';
 
 export default class HondaBar extends React.Component {
   constructor(props) {

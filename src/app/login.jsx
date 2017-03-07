@@ -2,7 +2,7 @@ import React from 'react';
 import { hashHistory } from 'react-router';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import { login } from './auth.jsx';
+import { login } from './models/auth.jsx';
 
 export default class HondaLogin extends React.Component {
   static button_style = {

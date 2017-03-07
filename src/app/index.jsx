@@ -10,7 +10,7 @@ import HondaConversations from './conversations.jsx';
 import PostNew from './conversation.jsx';
 import HondaHome from './home.jsx';
 import HondaLogin from './login.jsx';
-import { isLoggedIn } from './auth.jsx';
+import { isLoggedIn } from './models/auth.jsx';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
