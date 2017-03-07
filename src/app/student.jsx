@@ -108,25 +108,25 @@ export default class HondaStudent extends React.Component {
         /><br/>
         <Checkbox
           label="Notify student with their account credentials."
-          style={this.check_style}
+          style={HondaStudent.check_style}
         /><br/>
         <RaisedButton
           label={this.state.saveMessage}
           primary={true}
           disabled={!this.state.saveEnabled}
-          style={this.button_style}
+          style={HondaStudent.button_style}
           onTouchTap={this.handleSaveRequest}
         />
         <RaisedButton
           label="Cancel"
           disabled={!this.state.saveEnabled}
-          style={this.button_style}
+          style={HondaStudent.button_style}
         />
         {
           this.state.progressHidden
             ? null
             : <LinearProgress
-              style={this.progress_style}
+              style={HondaStudent.progress_style}
               mode="determinate"
               value={this.state.completed}
             />

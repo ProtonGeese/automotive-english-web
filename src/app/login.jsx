@@ -109,7 +109,7 @@ export default class HondaLogin extends React.Component {
             label={this.state.buttonText}
             primary={true}
             disabled={!this.state.buttonEnabled}
-            style={this.button_style}
+            style={HondaLogin.button_style}
             onTouchTap={this.handleLoginRequest}
           />
         </div>
@@ -126,7 +126,7 @@ export default class HondaLogin extends React.Component {
             label={this.state.buttonText}
             primary={true}
             disabled={!this.state.buttonEnabled}
-            style={this.button_style}
+            style={HondaLogin.button_style}
             onTouchTap={this.handleUpdatePasswordRequest}
           />
         </div>
