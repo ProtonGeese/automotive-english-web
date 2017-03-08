@@ -41,5 +41,5 @@ export function deleteUser(params, callback) {
     } else {
       callback.onFailure(err);
     }
-  });  
+  });
 }

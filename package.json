@@ -44,6 +44,7 @@
     "eslint-plugin-react": "^6.10.0",
     "jest": "^18.1.0",
     "jest-enzyme": "^2.1.2",
+    "jsdoc": "^3.4.3",
     "react-addons-test-utils": "^15.4.2",
     "react-test-renderer": "^15.4.2"
   },
