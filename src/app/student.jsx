@@ -1,12 +1,10 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
-import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import RaisedButton from 'material-ui/RaisedButton';
 import Checkbox from 'material-ui/Checkbox';
 import LinearProgress from 'material-ui/LinearProgress';
-import Snackbar from 'material-ui/Snackbar';
-
-import { createNewUser } from './user_management.jsx';
+import Snackbar from 'material-ui/Snackbar'; 
+import { createNewUser } from './models/user.jsx';
 
 export default class HondaStudent extends React.Component {
   static button_style = {
@@ -45,30 +43,41 @@ export default class HondaStudent extends React.Component {
     createNewUser({
       username: this.state.username,
       password: this.state.password
-    }, (err, data) => {
-      if(err) {
-        this.setState({
-          completed: 0,
-          snackbarOpen: true,
-          snackbarMessage: 'Could not create user.'
-        });
-        console.log(err);
-      } else {
+    }, {
+      onSuccess: (data) => {
+        console.log(data);
         this.setState({
           completed: 100,
           snackbarOpen: true,
           snackbarMessage: 'User successfully saved.'
         });
-      }
-
-      setTimeout(() => {
+        
+        setTimeout(() => {
+          this.setState({
+            saveEnabled: true,
+            saveMessage: 'Save',
+            progressHidden: true,
+            completed: 0
+          });
+        }, 4000);
+      },
+      onFailure: (err) => {
+        console.log(err);
         this.setState({
-          saveEnabled: true,
-          saveMessage: 'Save',
-          progressHidden: true,
-          completed: 0
+          completed: 0,
+          snackbarOpen: true,
+          snackbarMessage: 'Could not create user.'
         });
-      }, 4000);
+
+        setTimeout(() => {
+          this.setState({
+            saveEnabled: true,
+            saveMessage: 'Save',
+            progressHidden: true,
+            completed: 0
+          });
+        });
+      }
     });
   }
 
@@ -94,9 +103,6 @@ export default class HondaStudent extends React.Component {
     return (
       <div>
         <h2>Create a new user.</h2>
-        <TextField
-          floatingLabelText="Name"
-        /><br/>
         <TextField
           floatingLabelText="Email"
           onChange={this.handleEmailChange}
