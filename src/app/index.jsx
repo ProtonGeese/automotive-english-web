@@ -19,17 +19,15 @@ injectTapEventPlugin();
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.requireAuthEnter = this.requireAuthEnter.bind(this);
-    this.requireAuthChange = this.requireAuthEnter.bind(this);
   }
 
-  requireAuthEnter(nextState, replace) {
+  requireAuthEnter = (nextState, replace) => {
     if (!isLoggedIn()) {
       replace('/login');
     }
   }
 
-  requireAuthChange(prevState, nextState, replace) {
+  requireAuthChange = (prevState, nextState, replace) => {
     if (!isLoggedIn()) {
       replace('/login');
     }
