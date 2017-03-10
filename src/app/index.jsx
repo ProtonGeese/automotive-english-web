@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+
 import AppContainer from './container.jsx';
 import HondaStudents from './students.jsx';
 import HondaStudentNew from './student.jsx';
@@ -10,6 +11,7 @@ import HondaConversations from './conversations.jsx';
 import PostNew from './conversation.jsx';
 import HondaHome from './home.jsx';
 import HondaLogin from './login.jsx';
+import HondaLessons from './lessons.jsx';
 import { isLoggedIn } from './models/auth.jsx';
 
 // Needed for onTouchTap
@@ -48,9 +50,10 @@ class App extends React.Component {
           <IndexRoute component={HondaHome}/>
           <Route path="students" component={HondaStudents}/>
           <Route path="students/new" component={HondaStudentNew}/>
-          <Route path="student/:userId/edit" component={HondaStudentEdit}/>
+          <Route path="students/:userId/edit" component={HondaStudentEdit}/>
           <Route path="conversations" component={HondaConversations}/>
           <Route path="conversations/new" component={PostNew}/>
+          <Route path='lessons' component={HondaLessons}/>
         </Route>
       </Router>
     );

@@ -1,6 +1,5 @@
 import React from 'react';
-import Mailto from 'react-mailto';
-import { hashHistory } from 'react-router';
+import { hashHistory, Link } from 'react-router';
 import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
@@ -10,15 +9,13 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import Dialog from 'material-ui/Dialog';
 import Snackbar from 'material-ui/Snackbar';
-import { Link } from 'react-router';
 
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh';
 import ActionDeleteForever from 'material-ui/svg-icons/action/delete-forever';
 import ImageEdit from 'material-ui/svg-icons/image/edit';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
-class HondaStudents extends React.Component { 
-
+class HondaLessons extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,51 +27,29 @@ class HondaStudents extends React.Component {
       tableData: [
         {
           id: 1,
-          name: 'John Smith',
-          role: 'Student',
-          email: 'smith.1@osu.edu',
-          grade: '85%'
+          title: 'Lesson 1',
+          description: 'Introduction'
         },
         {
           id: 2,
-          name: 'Randal White',
-          role: 'Student',
-          email: 'white.7@osu.edu',
-          grade: '92%'
+          title: 'Lesson 2',
+          description: 'Introduction'
         },
         {
           id: 3,
-          name: 'Maria Sanders',
-          role: 'Student',
-          email: 'sanders.13@osu.edu',
-          grade: '72%'
+          title: 'Lesson 3',
+          description: 'Introduction'
         },
         {
           id: 4,
-          name: 'Steve Brown',
-          role: 'Student',
-          email: 'brown.9@osu.edu',
-          grade: '92%'
-        },
-        {
-          id: 5,
-          name: 'Joey Chagnon',
-          role: 'Student',
-          email: 'chagnon.5@osu.edu',
-          grade: '100%'
+          title: 'Lesson 4',
+          description: 'Introduction'
         }
       ]
     };
-
-    this.handleRowSelection = this.handleRowSelection.bind(this);
-    this.handleEditRequest = this.handleEditRequest.bind(this);
-    this.handleDeleteRequest = this.handleDeleteRequest.bind(this);
-    this.handleDeleteCancel = this.handleDeleteCancel.bind(this);
-    this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this);
-    this.handleSnackbarClose = this.handleSnackbarClose.bind(this);
   }
 
-  handleRowSelection(selectedRows) {
+  handleRowSelection = (selectedRows) => {
     if (selectedRows.length === 0) {
       this.setState({
         hasSelection: false,
@@ -88,31 +63,31 @@ class HondaStudents extends React.Component {
     }
   }
 
-  handleDeleteCancel() {
+  handleDeleteCancel = () => {
     this.setState({
       confirmDelete: false
     });
   }
 
-  handleDeleteConfirm() {
+  handleDeleteConfirm = () => {
     this.setState({
       confirmDelete: false,
       snackbarOpen: true,
-      snackbarMessage: 'User successfully deleted.'
+      snackbarMessage: 'Lesson successfully deleted.'
     });
   }
 
-  handleDeleteRequest() {
+  handleDeleteRequest = () => {
     this.setState({
       confirmDelete: true
     });
   }
 
-  handleEditRequest() {
-    hashHistory.push('/students/' + this.state.tableData[this.state.selectedRows].id + '/edit');
+  handleEditRequest = () => {
+    hashHistory.push('/lessons/' + this.state.tableData[this.state.selectedRows].id + '/edit');
   }
 
-  handleSnackbarClose() {
+  handleSnackbarClose = () => {
     this.setState({
       snackbarOpen: false
     });
@@ -149,19 +124,19 @@ class HondaStudents extends React.Component {
         />
         <Toolbar>
           <ToolbarGroup>
-            <FlatButton 
-              label="New User" primary={true}
+            <FlatButton
+              label="New Lesson" primary={true}
               icon={<ContentAdd/>}
-              containerElement={<Link to="/students/new" />}
+              containerElement={<Link to="/lessons/new" />}
             />
             <FlatButton
-              label="Edit User"
+              label="Edit Lesson"
               icon={<ImageEdit/>}
               disabled={!this.state.hasSelection}
               onTouchTap={this.handleEditRequest}
             />
             <FlatButton
-              label="Delete User"
+              label="Delete Lesson"
               icon={<ActionDeleteForever/>}
               secondary={true}
               disabled={!this.state.hasSelection}
@@ -172,18 +147,6 @@ class HondaStudents extends React.Component {
               icon={<NavigationRefresh/>}
             />
           </ToolbarGroup>
-          <ToolbarGroup>
-            <IconMenu
-              iconButtonElement={
-                <IconButton touch={true}>
-                  <NavigationExpandMoreIcon/>
-                </IconButton>
-              }
-            >
-              <MenuItem primaryText="Export as…"/>
-              <MenuItem primaryText="Help"/>
-            </IconMenu>
-          </ToolbarGroup>
         </Toolbar>
         <Table
           onRowSelection={this.handleRowSelection}
@@ -191,11 +154,8 @@ class HondaStudents extends React.Component {
           <TableHeader>
             <TableRow>
               <TableHeaderColumn>ID</TableHeaderColumn>
-              <TableHeaderColumn>Name</TableHeaderColumn>
-              <TableHeaderColumn>Role</TableHeaderColumn>
-              <TableHeaderColumn>Email</TableHeaderColumn>
-              <TableHeaderColumn>Grade</TableHeaderColumn>
-              <TableHeaderColumn>More</TableHeaderColumn>
+              <TableHeaderColumn>Title</TableHeaderColumn>
+              <TableHeaderColumn>Description</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody
@@ -204,11 +164,8 @@ class HondaStudents extends React.Component {
             {this.state.tableData.map( (row, index) => (
               <TableRow key={index}>
                 <TableRowColumn>{row.id}</TableRowColumn>
-                <TableRowColumn><Link to={'/students/' + row.id}>{row.name}</Link></TableRowColumn>
-                <TableRowColumn>{row.role}</TableRowColumn>
-                <TableRowColumn><Mailto email={row.email}>{row.email}</Mailto></TableRowColumn>
-                <TableRowColumn>{row.grade}</TableRowColumn>
-                <TableRowColumn><FlatButton label="Details"/></TableRowColumn>
+                <TableRowColumn>{row.title}</TableRowColumn>
+                <TableRowColumn>{row.description}</TableRowColumn>
               </TableRow>
             ))}
           </TableBody>
@@ -218,4 +175,4 @@ class HondaStudents extends React.Component {
   }
 }
 
-export default HondaStudents;
+export default HondaLessons;
