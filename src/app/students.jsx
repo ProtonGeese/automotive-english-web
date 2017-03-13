@@ -7,7 +7,7 @@ import FlatButton from 'material-ui/FlatButton';
 import MenuItem from 'material-ui/MenuItem';
 import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
-import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 import Dialog from 'material-ui/Dialog';
 import Snackbar from 'material-ui/Snackbar';
 import { Link } from 'react-router';
@@ -17,7 +17,36 @@ import ActionDeleteForever from 'material-ui/svg-icons/action/delete-forever';
 import ImageEdit from 'material-ui/svg-icons/image/edit';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
+import { listUsers } from './models/user.jsx';
+
 class HondaStudents extends React.Component { 
+
+  populateTableData = () => {
+    listUsers(null, {
+      onSuccess: (data) => {
+        this.setState({
+          tableData: data.Users.map((e) => {
+            var newValue = {};
+
+            newValue.email = e.Attributes.find((a) => {
+              return a.Name === 'email';
+            }).Value;
+
+            newValue.username = e.Username;
+
+            return newValue;
+          })
+        });
+      },
+      onFailure: (err) => {
+        this.setState({
+          snackbarOpen: true,
+          snackbarMessage: 'Error, could not fetch user information'
+        });
+      }
+    });
+
+  }
 
   constructor(props) {
     super(props);
@@ -27,54 +56,11 @@ class HondaStudents extends React.Component {
       confirmDelete: false,
       snackbarOpen: false,
       snackbarMessage: 'Error, this message should not be seen.',
-      tableData: [
-        {
-          id: 1,
-          name: 'John Smith',
-          role: 'Student',
-          email: 'smith.1@osu.edu',
-          grade: '85%'
-        },
-        {
-          id: 2,
-          name: 'Randal White',
-          role: 'Student',
-          email: 'white.7@osu.edu',
-          grade: '92%'
-        },
-        {
-          id: 3,
-          name: 'Maria Sanders',
-          role: 'Student',
-          email: 'sanders.13@osu.edu',
-          grade: '72%'
-        },
-        {
-          id: 4,
-          name: 'Steve Brown',
-          role: 'Student',
-          email: 'brown.9@osu.edu',
-          grade: '92%'
-        },
-        {
-          id: 5,
-          name: 'Joey Chagnon',
-          role: 'Student',
-          email: 'chagnon.5@osu.edu',
-          grade: '100%'
-        }
-      ]
+      tableData: []
     };
-
-    this.handleRowSelection = this.handleRowSelection.bind(this);
-    this.handleEditRequest = this.handleEditRequest.bind(this);
-    this.handleDeleteRequest = this.handleDeleteRequest.bind(this);
-    this.handleDeleteCancel = this.handleDeleteCancel.bind(this);
-    this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this);
-    this.handleSnackbarClose = this.handleSnackbarClose.bind(this);
   }
 
-  handleRowSelection(selectedRows) {
+  handleRowSelection = (selectedRows) => {
     if (selectedRows.length === 0) {
       this.setState({
         hasSelection: false,
@@ -88,13 +74,13 @@ class HondaStudents extends React.Component {
     }
   }
 
-  handleDeleteCancel() {
+  handleDeleteCancel = () => {
     this.setState({
       confirmDelete: false
     });
   }
 
-  handleDeleteConfirm() {
+  handleDeleteConfirm = () => {
     this.setState({
       confirmDelete: false,
       snackbarOpen: true,
@@ -102,7 +88,7 @@ class HondaStudents extends React.Component {
     });
   }
 
-  handleDeleteRequest() {
+  handleDeleteRequest = () => {
     this.setState({
       confirmDelete: true
     });
@@ -112,10 +98,18 @@ class HondaStudents extends React.Component {
     hashHistory.push('/students/' + this.state.tableData[this.state.selectedRows].id + '/edit');
   }
 
-  handleSnackbarClose() {
+  handleSnackbarClose = () => {
     this.setState({
       snackbarOpen: false
     });
+  }
+
+  handleRefreshRequest = () => {
+    this.populateTableData();
+  }
+
+  componentDidMount = () => {
+    this.populateTableData();
   }
 
   render() {
@@ -170,6 +164,7 @@ class HondaStudents extends React.Component {
             <FlatButton
               label="Refresh"
               icon={<NavigationRefresh/>}
+              onTouchTap={this.handleRefreshRequest}
             />
           </ToolbarGroup>
           <ToolbarGroup>
@@ -190,11 +185,8 @@ class HondaStudents extends React.Component {
         >
           <TableHeader>
             <TableRow>
-              <TableHeaderColumn>ID</TableHeaderColumn>
-              <TableHeaderColumn>Name</TableHeaderColumn>
-              <TableHeaderColumn>Role</TableHeaderColumn>
+              <TableHeaderColumn>Username</TableHeaderColumn>
               <TableHeaderColumn>Email</TableHeaderColumn>
-              <TableHeaderColumn>Grade</TableHeaderColumn>
               <TableHeaderColumn>More</TableHeaderColumn>
             </TableRow>
           </TableHeader>
@@ -203,11 +195,8 @@ class HondaStudents extends React.Component {
           >
             {this.state.tableData.map( (row, index) => (
               <TableRow key={index}>
-                <TableRowColumn>{row.id}</TableRowColumn>
-                <TableRowColumn><Link to={'/students/' + row.id}>{row.name}</Link></TableRowColumn>
-                <TableRowColumn>{row.role}</TableRowColumn>
+                <TableRowColumn><Link to={'/students/' + row.username}>{row.username}</Link></TableRowColumn>
                 <TableRowColumn><Mailto email={row.email}>{row.email}</Mailto></TableRowColumn>
-                <TableRowColumn>{row.grade}</TableRowColumn>
                 <TableRowColumn><FlatButton label="Details"/></TableRowColumn>
               </TableRow>
             ))}

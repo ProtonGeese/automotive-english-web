@@ -28,6 +28,21 @@ export function createNewUser(params, callback) {
   });
 }
 
+export function listUsers(params, callback) {
+  var opts = {
+    UserPoolId: state.userPoolId
+  };
+
+  var c = new CognitoIdentityServiceProvider();
+  c.listUsers(opts, (err, data) => {
+    if (!err) {
+      callback.onSuccess(data);
+    } else {
+      callback.onFailure(err);
+    }
+  });
+}
+
 export function deleteUser(params, callback) {
   var opts = {
     UserPoolId: state.userPoolId,
