@@ -17,7 +17,7 @@ import ActionDeleteForever from 'material-ui/svg-icons/action/delete-forever';
 import ImageEdit from 'material-ui/svg-icons/image/edit';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
-import { listUsers } from './models/user.jsx';
+import { listUsers, deleteUser } from './models/user.jsx';
 
 class HondaStudents extends React.Component { 
 
@@ -81,10 +81,23 @@ class HondaStudents extends React.Component {
   }
 
   handleDeleteConfirm = () => {
-    this.setState({
-      confirmDelete: false,
-      snackbarOpen: true,
-      snackbarMessage: 'User successfully deleted.'
+    deleteUser({
+      username: this.state.tableData[this.state.selectedRows].username
+    }, {
+      onSuccess: () => {
+        this.setState({
+          confirmDelete: false,
+          snackbarOpen: true,
+          snackbarMessage: 'User successfully deleted.'
+        });
+      },
+      onFailure: () => {
+        this.setState({
+          confirmDelete: false,
+          snackbarOpen: true,
+          snackbarMessage: 'Could not delete user.'
+        });
+      }
     });
   }
 
