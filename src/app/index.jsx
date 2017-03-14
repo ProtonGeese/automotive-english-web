@@ -12,7 +12,7 @@ import PostNew from './conversation.jsx';
 import HondaHome from './home.jsx';
 import HondaLogin from './login.jsx';
 import HondaLessons from './lessons.jsx';
-import { isLoggedIn } from './models/auth.jsx';
+import { isLoggedIn, resume } from './models/auth.jsx';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -60,7 +60,19 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(
-  <App/>,
-  document.getElementById('app')
-);
+function main() {
+  ReactDOM.render(
+    <App/>,
+    document.getElementById('app')
+  );
+}
+
+/*
+ * Try resuming an existing session.
+ * Errors are handled downstream so we take the same action whether we hit an
+ * error or not.
+ */
+resume({
+  onSuccess: main,
+  onFailure: main
+});

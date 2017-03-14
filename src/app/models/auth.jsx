@@ -19,6 +19,52 @@ var state  = {
   userPool: null
 };
 
+export function resume(callback = {}) {
+  var poolData = {
+    UserPoolId: state.userPoolId,
+    ClientId: state.clientId
+  };
+
+  state.userPool = new CognitoUserPool(poolData);
+  state.cognitoUser = state.userPool.getCurrentUser();
+
+  if (state.cognitoUser != null) {
+    state.cognitoUser.getSession((err, session) => {
+      if (!err) {
+        config.region = state.region;
+
+        config.update({
+          credentials: new CognitoIdentityCredentials({
+            IdentityPoolId: state.identityPoolId,
+            Logins: {
+              [state.loginEndpoint + state.userPoolId]: session.getIdToken().getJwtToken()
+            }
+          })
+        });
+
+        config.credentials.refresh((err) => {
+          // AWS's error handling is incredibly consistent.
+          if (err && 'onFailure' in callback) {
+            callback.onFailure(err);
+            return;
+          }
+
+          state.loggedIn = true;
+
+          if ('onSuccess' in callback) {
+            callback.onSuccess(session);
+          }
+        });
+
+      } else {
+        if ('onFailure' in callback) {
+          callback.onFailure(err);
+        }
+      }
+    });
+  }
+}
+
 export function login(username, password, callback = {}) {
   var authenticationData = {
     Username : username,
