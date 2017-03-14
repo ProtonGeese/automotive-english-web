@@ -13,7 +13,7 @@ export function createNewUser(params, callback) {
     UserAttributes: [
       {
         Name: 'email',
-        Value: params.username
+        Value: params.email
       }
     ]
   };

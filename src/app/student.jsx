@@ -42,6 +42,7 @@ export default class HondaStudent extends React.Component {
 
     createNewUser({
       username: this.state.username,
+      email: this.state.email,
       password: this.state.password
     }, {
       onSuccess: (data) => {
@@ -87,9 +88,15 @@ export default class HondaStudent extends React.Component {
     });
   }
 
-  handleEmailChange = (event, newValue) => {
+  handleUsernameChange = (event, newValue) => {
     this.setState({
       username: newValue
+    });
+  }
+
+  handleEmailChange = (event, newValue) => {
+    this.setState({
+      email: newValue
     });
   }
 
@@ -103,6 +110,10 @@ export default class HondaStudent extends React.Component {
     return (
       <div>
         <h2>Create a new user.</h2>
+        <TextField
+          floatingLabelText="Username"
+          onChange={this.handleUsernameChange}
+        /><br/>
         <TextField
           floatingLabelText="Email"
           onChange={this.handleEmailChange}
