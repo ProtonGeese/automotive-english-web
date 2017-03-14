@@ -43,6 +43,28 @@ export function listUsers(params, callback) {
   });
 }
 
+export function updateUser(params, callback) {
+  var opts = {
+    UserPoolId: state.userPoolId,
+    Username: params.username,
+    UserAttributes: [
+      {
+        Name: 'email',
+        Value: params.email
+      }
+    ]
+  };
+
+  var c = new CognitoIdentityServiceProvider();
+  c.adminUpdateUserAttributes(opts, (err, data) => {
+    if (!err) {
+      callback.onSuccess(data);
+    } else {
+      callback.onFailure(err);
+    }
+  });
+}
+
 export function deleteUser(params, callback) {
   var opts = {
     UserPoolId: state.userPoolId,
