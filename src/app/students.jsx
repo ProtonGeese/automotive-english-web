@@ -94,8 +94,8 @@ class HondaStudents extends React.Component {
     });
   }
 
-  handleEditRequest() {
-    hashHistory.push('/students/' + this.state.tableData[this.state.selectedRows].id + '/edit');
+  handleEditRequest = () => {
+    hashHistory.push('/students/' + this.state.tableData[this.state.selectedRows].username + '/edit');
   }
 
   handleSnackbarClose = () => {
