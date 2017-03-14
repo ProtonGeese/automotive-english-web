@@ -80,3 +80,19 @@ export function deleteUser(params, callback) {
     }
   });
 }
+
+export function getUser(params, callback) {
+  var opts = {
+    UserPoolId: state.userPoolId,
+    Username: params.username
+  };
+
+  var c = new CognitoIdentityServiceProvider();
+  c.adminGetUser(opts, (err, data) => {
+    if (!err) {
+      callback.onSuccess(data);
+    } else {
+      callback.onFailure(err);
+    }
+  });
+}

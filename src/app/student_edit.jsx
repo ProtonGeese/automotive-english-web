@@ -1,10 +1,10 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
-import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import RaisedButton from 'material-ui/RaisedButton';
-import Checkbox from 'material-ui/Checkbox';
 import LinearProgress from 'material-ui/LinearProgress';
 import Snackbar from 'material-ui/Snackbar';
+
+import { getUser } from './models/user.jsx';
 
 export default class HondaStudentEdit extends React.Component {
   static button_style = {
@@ -22,10 +22,16 @@ export default class HondaStudentEdit extends React.Component {
   sleep(time) {
     return new Promise((resolve) => setTimeout(resolve, time));
   }
+  
+  static propTypes = {
+    params: React.PropTypes.any
+  }
 
   constructor(props) {
     super(props);
     this.state = {
+      username: '',
+      email: '',
       completed: 0,
       saveEnabled: true,
       saveMessage: 'Save',
@@ -36,6 +42,34 @@ export default class HondaStudentEdit extends React.Component {
 
     this.handleSaveRequest = this.handleSaveRequest.bind(this);
     this.handleSnackbarClose = this.handleSnackbarClose.bind(this);
+  }
+
+  componentDidMount = () => {
+    getUser({
+      username: this.props.params.userId
+    }, {
+      onSuccess: (data) => {
+        this.setState({
+          username: data.Username,
+          email: data.UserAttributes.find((a) => {
+            return a.Name === 'email';
+          }).Value
+        });
+      },
+      onFailure: () => {
+        this.setState({
+          snackbarOpen: true,
+          snackbarMessage: 'Could not fetch user information.',
+          saveEnabled: false
+        });
+      }
+    });
+  }
+
+  handleEmailChange = (event, newValue) => {
+    this.setState({
+      email: newValue
+    });
   }
 
   async handleSaveRequest() {
@@ -69,7 +103,7 @@ export default class HondaStudentEdit extends React.Component {
     }, 4000);
   }
 
-  handleSnackbarClose() {
+  handleSnackbarClose = () => {
     this.setState({
       snackbarOpen: false
     });
@@ -81,24 +115,13 @@ export default class HondaStudentEdit extends React.Component {
         <h2>Edit a user.</h2>
         <TextField
           floatingLabelText="Name"
+          value={this.state.username}
+          disabled={true}
         /><br/>
         <TextField
           floatingLabelText="Email"
-        /><br/>
-        <TextField
-          floatingLabelText="Password"
-          type="password"
-        /><br/>
-        <TextField
-          floatingLabelText="Confirm Password"
-          type="password"
-        /><br/>
-        <TextField
-          floatingLabelText="Section"
-        /><br/>
-        <Checkbox
-          label="Notify student with their account credentials."
-          style={HondaStudentEdit.check_style}
+          value={this.state.email}
+          onChange={this.handleEmailChange}
         /><br/>
         <RaisedButton
           label={this.state.saveMessage}
