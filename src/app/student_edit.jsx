@@ -4,7 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import LinearProgress from 'material-ui/LinearProgress';
 import Snackbar from 'material-ui/Snackbar';
 
-import { getUser } from './models/user.jsx';
+import { getUser, updateUser } from './models/user.jsx';
 
 export default class HondaStudentEdit extends React.Component {
   static button_style = {
@@ -19,10 +19,6 @@ export default class HondaStudentEdit extends React.Component {
     'marginTop': '1rem'
   }
 
-  sleep(time) {
-    return new Promise((resolve) => setTimeout(resolve, time));
-  }
-  
   static propTypes = {
     params: React.PropTypes.any
   }
@@ -39,9 +35,6 @@ export default class HondaStudentEdit extends React.Component {
       snackbarOpen: false,
       snackbarMessage: 'Error, this message should not be seen.',
     };
-
-    this.handleSaveRequest = this.handleSaveRequest.bind(this);
-    this.handleSnackbarClose = this.handleSnackbarClose.bind(this);
   }
 
   componentDidMount = () => {
@@ -72,35 +65,50 @@ export default class HondaStudentEdit extends React.Component {
     });
   }
 
-  async handleSaveRequest() {
+  handleSaveRequest = () => {
     this.setState({
       saveEnabled: false,
       saveMessage: 'Saving...',
       progressHidden: false
     });
 
-    await this.sleep(1000);
- 
-    this.setState({
-      completed: 50
-    });
+    updateUser({
+      username: this.state.username,
+      email: this.state.email
+    }, {
+      onSuccess: () => {
+        this.setState({
+          completed: 100,
+          snackbarOpen: true,
+          snackbarMessage: 'User successfully saved.'
+        });
 
-    await this.sleep(1000);
-    
-    this.setState({
-      completed: 100,
-      snackbarOpen: true,
-      snackbarMessage: 'User successfully saved.'
-    });
+        setTimeout(() => {
+          this.setState({
+            saveEnabled: true,
+            saveMessage: 'Save',
+            progressHidden: true,
+            completed: 0
+          });
+        }, 4000);
+      },
+      onFailure: () => {
+       this.setState({
+          completed: 0,
+          snackbarOpen: true,
+          snackbarMessage: 'Could not save user.'
+        });
 
-    setTimeout(() => {
-      this.setState({
-        saveEnabled: true,
-        saveMessage: 'Save',
-        progressHidden: true,
-        completed: 0
-      });
-    }, 4000);
+        setTimeout(() => {
+          this.setState({
+            saveEnabled: true,
+            saveMessage: 'Save',
+            progressHidden: true,
+            completed: 0
+          });
+        }, 4000);
+      }
+    });
   }
 
   handleSnackbarClose = () => {
