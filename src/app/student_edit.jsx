@@ -1,4 +1,5 @@
 import React from 'react';
+import { hashHistory } from 'react-router';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import LinearProgress from 'material-ui/LinearProgress';
@@ -93,7 +94,7 @@ export default class HondaStudentEdit extends React.Component {
         }, 4000);
       },
       onFailure: () => {
-       this.setState({
+        this.setState({
           completed: 0,
           snackbarOpen: true,
           snackbarMessage: 'Could not save user.'
@@ -109,6 +110,10 @@ export default class HondaStudentEdit extends React.Component {
         }, 4000);
       }
     });
+  }
+
+  handleCancelRequest = () => {
+    hashHistory.goBack();
   }
 
   handleSnackbarClose = () => {
@@ -142,6 +147,7 @@ export default class HondaStudentEdit extends React.Component {
           label="Cancel"
           disabled={!this.state.saveEnabled}
           style={HondaStudentEdit.button_style}
+          onTouchTap={this.handleCancelRequest}
         />
         {
           this.state.progressHidden

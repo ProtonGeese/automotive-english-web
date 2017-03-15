@@ -1,4 +1,5 @@
 import React from 'react';
+import { hashHistory } from 'react-router';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Checkbox from 'material-ui/Checkbox';
@@ -45,8 +46,7 @@ export default class HondaStudent extends React.Component {
       email: this.state.email,
       password: this.state.password
     }, {
-      onSuccess: (data) => {
-        console.log(data);
+      onSuccess: () => {
         this.setState({
           completed: 100,
           snackbarOpen: true,
@@ -62,8 +62,7 @@ export default class HondaStudent extends React.Component {
           });
         }, 4000);
       },
-      onFailure: (err) => {
-        console.log(err);
+      onFailure: () => {
         this.setState({
           completed: 0,
           snackbarOpen: true,
@@ -82,6 +81,10 @@ export default class HondaStudent extends React.Component {
     });
   }
 
+  handleCancelRequest = () => {
+    hashHistory.goBack();
+  }
+  
   handleSnackbarClose = () => {
     this.setState({
       snackbarOpen: false
@@ -138,6 +141,7 @@ export default class HondaStudent extends React.Component {
           label="Cancel"
           disabled={!this.state.saveEnabled}
           style={HondaStudent.button_style}
+          onTouchTap={this.handleCancelRequest}
         />
         {
           this.state.progressHidden
