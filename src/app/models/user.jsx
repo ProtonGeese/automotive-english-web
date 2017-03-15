@@ -51,6 +51,10 @@ export function updateUser(params, callback) {
       {
         Name: 'email',
         Value: params.email
+      },
+      {
+        Name: 'email_verified',
+        Value: 'true'
       }
     ]
   };
