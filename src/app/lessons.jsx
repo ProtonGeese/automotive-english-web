@@ -1,12 +1,8 @@
 import React from 'react';
 import { hashHistory, Link } from 'react-router';
-import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
-import MenuItem from 'material-ui/MenuItem';
-import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
-import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+import {Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import Dialog from 'material-ui/Dialog';
 import Snackbar from 'material-ui/Snackbar';
 
@@ -15,7 +11,26 @@ import ActionDeleteForever from 'material-ui/svg-icons/action/delete-forever';
 import ImageEdit from 'material-ui/svg-icons/image/edit';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
+import { listLessons, deleteLesson } from './models/lesson.jsx';
+
 class HondaLessons extends React.Component {
+
+  populateTableData = () => {
+    listLessons({
+      onSuccess: (data) => {
+        this.setState({
+          tableData: data.Items
+        });
+      },
+      onFailure: () => {
+        this.setState({
+          snackbarOpen: true,
+          snackbarMessage: 'Error, could not fetch lesson information'
+        });
+      }
+    });
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -24,29 +39,12 @@ class HondaLessons extends React.Component {
       confirmDelete: false,
       snackbarOpen: false,
       snackbarMessage: 'Error, this message should not be seen.',
-      tableData: [
-        {
-          id: 1,
-          title: 'Lesson 1',
-          description: 'Introduction'
-        },
-        {
-          id: 2,
-          title: 'Lesson 2',
-          description: 'Introduction'
-        },
-        {
-          id: 3,
-          title: 'Lesson 3',
-          description: 'Introduction'
-        },
-        {
-          id: 4,
-          title: 'Lesson 4',
-          description: 'Introduction'
-        }
-      ]
+      tableData: []
     };
+  }
+
+  componentDidMount = () => {
+    this.populateTableData();
   }
 
   handleRowSelection = (selectedRows) => {
@@ -70,10 +68,23 @@ class HondaLessons extends React.Component {
   }
 
   handleDeleteConfirm = () => {
-    this.setState({
-      confirmDelete: false,
-      snackbarOpen: true,
-      snackbarMessage: 'Lesson successfully deleted.'
+    deleteLesson({
+      lessonId: this.state.tableData[this.state.selectedRows].lessonId
+    }, {
+      onSuccess: () => {
+        this.setState({
+          confirmDelete: false,
+          snackbarOpen: true,
+          snackbarMessage: 'Lesson successfully deleted.'
+        });
+      },
+      onFailure: () => {
+        this.setState({
+          confirmDelete: false,
+          snackbarOpen: true,
+          snackbarMessage: 'Could not delete lesson.'
+        });
+      }
     });
   }
 
@@ -84,7 +95,11 @@ class HondaLessons extends React.Component {
   }
 
   handleEditRequest = () => {
-    hashHistory.push('/lessons/' + this.state.tableData[this.state.selectedRows].id + '/edit');
+    hashHistory.push('/lessons/' + this.state.tableData[this.state.selectedRows].lessonId + '/edit');
+  }
+
+  handleRefreshRequest = () => {
+    this.populateTableData();
   }
 
   handleSnackbarClose = () => {
@@ -145,6 +160,7 @@ class HondaLessons extends React.Component {
             <FlatButton
               label="Refresh"
               icon={<NavigationRefresh/>}
+              onTouchTap={this.handleRefreshRequest}
             />
           </ToolbarGroup>
         </Toolbar>
@@ -163,7 +179,7 @@ class HondaLessons extends React.Component {
           >
             {this.state.tableData.map( (row, index) => (
               <TableRow key={index}>
-                <TableRowColumn>{row.id}</TableRowColumn>
+                <TableRowColumn>{row.lessonId}</TableRowColumn>
                 <TableRowColumn>{row.title}</TableRowColumn>
                 <TableRowColumn>{row.description}</TableRowColumn>
               </TableRow>
