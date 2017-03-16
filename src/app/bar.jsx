@@ -55,6 +55,10 @@ export default class HondaBar extends React.Component {
             containerElement={<Link to="/students" />}
           />
           <MenuItem
+            primaryText="Instructors"
+            containerElement={<Link to="/instructors" />}
+          />
+          <MenuItem
             primaryText="Conversations"
             containerElement={<Link to="/conversations" />}
           />
