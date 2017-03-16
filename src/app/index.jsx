@@ -9,6 +9,10 @@ import HondaStudents from './students.jsx';
 import HondaStudentNew from './students_new.jsx';
 import HondaStudentEdit from './students_edit.jsx';
 
+import HondaInstructors from './instructors.jsx';
+import HondaInstructorNew from './instructors_new.jsx';
+import HondaInstructorEdit from './instructors_edit.jsx';
+
 import HondaConversations from './conversations.jsx';
 import PostNew from './conversation.jsx';
 import HondaHome from './home.jsx';
@@ -54,6 +58,9 @@ class App extends React.Component {
           <Route path="students" component={HondaStudents}/>
           <Route path="students/new" component={HondaStudentNew}/>
           <Route path="students/:userId/edit" component={HondaStudentEdit}/>
+          <Route path="instructors" component={HondaInstructors}/>
+          <Route path="instructors/new" component={HondaInstructorNew}/>
+          <Route path="instructors/:userId/edit" component={HondaInstructorEdit}/>
           <Route path="conversations" component={HondaConversations}/>
           <Route path="conversations/new" component={PostNew}/>
           <Route path='lessons' component={HondaLessons}/>
@@ -65,6 +72,7 @@ class App extends React.Component {
 }
 
 function main() {
+  console.log('begin');
   ReactDOM.render(
     <App/>,
     document.getElementById('app')

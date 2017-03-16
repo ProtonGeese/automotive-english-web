@@ -9,6 +9,7 @@ import ActionInfo from 'material-ui/svg-icons/action/info';
 import ActionFavorite from 'material-ui/svg-icons/action/favorite';
 import ActionHelp from 'material-ui/svg-icons/action/help';
 import ActionBook from 'material-ui/svg-icons/action/book';
+import SocialPerson from 'material-ui/svg-icons/social/person';
 
 class HondaHome extends React.Component {
 
@@ -20,7 +21,7 @@ class HondaHome extends React.Component {
 
   static list_style = {
     width: 500,
-    height: 450,
+    height: 600,
     overflowY: 'auto'
   }
 
@@ -52,6 +53,16 @@ class HondaHome extends React.Component {
           title: 'Lessons',
           description: 'View and manage lessons',
           link: '/lessons'
+        },
+        {
+          icon: (
+            <SocialPerson 
+              style={HondaHome.icon_style}
+            />
+          ),
+          title: 'Instructors',
+          description: 'View and manage instructors',
+          link: '/instructors'
         },
         {
           icon: (
