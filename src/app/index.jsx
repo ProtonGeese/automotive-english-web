@@ -4,9 +4,11 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import AppContainer from './container.jsx';
+
 import HondaStudents from './students.jsx';
-import HondaStudentNew from './student.jsx';
-import HondaStudentEdit from './student_edit.jsx';
+import HondaStudentNew from './students_new.jsx';
+import HondaStudentEdit from './students_edit.jsx';
+
 import HondaConversations from './conversations.jsx';
 import PostNew from './conversation.jsx';
 import HondaHome from './home.jsx';
