@@ -62,6 +62,10 @@ export function resume(callback = {}) {
         }
       }
     });
+  } else {
+    if ('onFailure' in callback) {
+      callback.onFailure('Could not resume session');
+    }
   }
 }
 
