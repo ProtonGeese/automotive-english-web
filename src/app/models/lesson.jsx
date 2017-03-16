@@ -24,9 +24,7 @@ export function getLesson(params, callback) {
   var opts = {
     TableName: state.tableName,
     Key: {
-      'lessonId': {
-        'S': params.lessonId
-      }
+      'lessonId': params.lessonId
     }
   };
 
@@ -73,6 +71,27 @@ export function deleteLesson(params, callback) {
     if (!err) {
       callback.onSuccess(data);
     } else {
+      callback.onFailure(err);
+    }
+  });
+}
+
+export function updateLesson(params, callback) {
+  var opts = {
+    TableName: state.tableName,
+    Item: {
+      lessonId: params.lessonId,
+      title: params.title,
+      description: params.description
+    }
+  };
+
+  var d = new DynamoDB.DocumentClient();
+  d.put(opts, (err, data) => {
+    if (!err) {
+      callback.onSuccess(data);
+    } else {
+      console.log(err);
       callback.onFailure(err);
     }
   });

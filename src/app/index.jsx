@@ -19,6 +19,7 @@ import HondaHome from './home.jsx';
 import HondaLogin from './login.jsx';
 import HondaLessons from './lessons.jsx';
 import HondaLessonsNew from './lessons_new.jsx';
+import HondaLessonsEdit from './lessons_edit.jsx';
 import { isLoggedIn, resume } from './models/auth.jsx';
 
 // Needed for onTouchTap
@@ -65,6 +66,7 @@ class App extends React.Component {
           <Route path="conversations/new" component={PostNew}/>
           <Route path='lessons' component={HondaLessons}/>
           <Route path='lessons/new' component={HondaLessonsNew}/>
+          <Route path='lessons/:lessonId/edit' component={HondaLessonsEdit}/>
         </Route>
       </Router>
     );
@@ -72,7 +74,6 @@ class App extends React.Component {
 }
 
 function main() {
-  console.log('begin');
   ReactDOM.render(
     <App/>,
     document.getElementById('app')
