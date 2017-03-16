@@ -77,7 +77,12 @@ export default class HondaLogin extends React.Component {
 
     this.state.changePasswordCallback(this.state.password, {
       onSuccess: () => {
-        hashHistory.push('/');
+        this.setState({
+          changePassword: false,
+          buttonText: 'Login',
+          buttonEnabled: true,
+          password: ''
+        });
       },
       onFailure: (err) => {
         this.setState({
@@ -98,12 +103,14 @@ export default class HondaLogin extends React.Component {
             floatingLabelText="Email"
             onChange={this.handleUsernameChange}
             errorText={this.state.errorText}
+            value={this.state.username}
           /><br/>
           <TextField
             floatingLabelText="Password"
             type="password"
             onChange={this.handlePasswordChange}
             errorText={this.state.errorText}
+            value={this.state.password}
           /><br/>
           <RaisedButton
             label={this.state.buttonText}
@@ -120,6 +127,7 @@ export default class HondaLogin extends React.Component {
             floatingLabelText="Password"
             type="password"
             onChange={this.handlePasswordChange}
+            value={this.state.password}
             errorText={this.state.errorText}
           /><br/>
           <RaisedButton
@@ -127,6 +135,7 @@ export default class HondaLogin extends React.Component {
             primary={true}
             disabled={!this.state.buttonEnabled}
             style={HondaLogin.button_style}
+            value={this.state.password}
             onTouchTap={this.handleUpdatePasswordRequest}
           />
         </div>
