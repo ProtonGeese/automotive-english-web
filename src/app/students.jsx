@@ -222,15 +222,15 @@ class HondaStudents extends React.Component {
               onTouchTap={this.handleDeleteRequest}
             />
             <FlatButton
-              label="Refresh"
-              icon={<NavigationRefresh/>}
-              onTouchTap={this.handleRefreshRequest}
-            />
-            <FlatButton
               label={this.state.enableToggleButtonText}
               disabled={!this.state.hasSelection}
               icon={<ActionPowerSettingsNew/>}
               onTouchTap={this.handleEnableDisableToggle}
+            />
+            <FlatButton
+              label="Refresh"
+              icon={<NavigationRefresh/>}
+              onTouchTap={this.handleRefreshRequest}
             />
           </ToolbarGroup>
           <ToolbarGroup>
