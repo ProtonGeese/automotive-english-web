@@ -16,10 +16,11 @@ import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh';
 import ActionDeleteForever from 'material-ui/svg-icons/action/delete-forever';
 import ImageEdit from 'material-ui/svg-icons/image/edit';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import ActionPowerSettingsNew from 'material-ui/svg-icons/action/power-settings-new';
 
-import { listUsers, deleteUser } from './models/user.jsx';
+import { listUsers, deleteUser, disableUser, enableUser } from './models/user.jsx';
 
-class HondaStudents extends React.Component { 
+class HondaStudents extends React.Component {
 
   populateTableData = () => {
     listUsers(null, {
@@ -33,6 +34,8 @@ class HondaStudents extends React.Component {
             }).Value;
 
             newValue.username = e.Username;
+
+            newValue.enabled = e.Enabled;
 
             return newValue;
           })
@@ -56,7 +59,8 @@ class HondaStudents extends React.Component {
       confirmDelete: false,
       snackbarOpen: false,
       snackbarMessage: 'Error, this message should not be seen.',
-      tableData: []
+      tableData: [],
+      enableToggleButtonText: 'Enable'
     };
   }
 
@@ -67,9 +71,11 @@ class HondaStudents extends React.Component {
         selectedRows: []
       });
     } else {
+      var item = this.state.tableData[selectedRows];
       this.setState({
         hasSelection: true,
-        selectedRows: selectedRows
+        selectedRows: selectedRows,
+        enableToggleButtonText: item.enabled ? 'Disable' : 'Enable'
       });
     }
   }
@@ -105,6 +111,47 @@ class HondaStudents extends React.Component {
     this.setState({
       confirmDelete: true
     });
+  }
+
+  handleEnableDisableToggle = () => {
+    var item = this.state.tableData[this.state.selectedRows];
+    if (item.enabled) {
+      disableUser({
+        username: item.username
+      }, {
+        onSuccess: () => {
+          item.enabled = false;
+          this.setState({
+            tableData: this.state.tableData,
+            enableToggleButtonText: 'Enable'
+          });
+        },
+        onFailure: () => {
+          this.setState({
+            snackbarOpen: true,
+            snackbarMessage: 'Could not disable user.'
+          });
+        }
+      });
+    } else {
+      enableUser({
+        username: item.username
+      }, {
+        onSuccess: () => {
+          item.enabled = true;
+          this.setState({
+            tableData: this.state.tableData,
+            enableToggleButtonText: 'Disable'
+          });
+        },
+        onFailure: () => {
+          this.setState({
+            snackbarOpen: true,
+            snackbarMessage: 'Could not enable user.'
+          });
+        }
+      });
+    }
   }
 
   handleEditRequest = () => {
@@ -156,7 +203,7 @@ class HondaStudents extends React.Component {
         />
         <Toolbar>
           <ToolbarGroup>
-            <FlatButton 
+            <FlatButton
               label="New User" primary={true}
               icon={<ContentAdd/>}
               containerElement={<Link to="/students/new" />}
@@ -179,6 +226,12 @@ class HondaStudents extends React.Component {
               icon={<NavigationRefresh/>}
               onTouchTap={this.handleRefreshRequest}
             />
+            <FlatButton
+              label={this.state.enableToggleButtonText}
+              disabled={!this.state.hasSelection}
+              icon={<ActionPowerSettingsNew/>}
+              onTouchTap={this.handleEnableDisableToggle}
+            />
           </ToolbarGroup>
           <ToolbarGroup>
             <IconMenu
@@ -200,6 +253,7 @@ class HondaStudents extends React.Component {
             <TableRow>
               <TableHeaderColumn>Username</TableHeaderColumn>
               <TableHeaderColumn>Email</TableHeaderColumn>
+              <TableHeaderColumn>State</TableHeaderColumn>
               <TableHeaderColumn>More</TableHeaderColumn>
             </TableRow>
           </TableHeader>
@@ -210,6 +264,7 @@ class HondaStudents extends React.Component {
               <TableRow key={index}>
                 <TableRowColumn><Link to={'/students/' + row.username}>{row.username}</Link></TableRowColumn>
                 <TableRowColumn><Mailto email={row.email}>{row.email}</Mailto></TableRowColumn>
+                <TableRowColumn>{row.enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
                 <TableRowColumn><FlatButton label="Details"/></TableRowColumn>
               </TableRow>
             ))}

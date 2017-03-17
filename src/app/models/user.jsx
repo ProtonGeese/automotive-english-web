@@ -100,3 +100,35 @@ export function getUser(params, callback) {
     }
   });
 }
+
+export function disableUser(params, callback) {
+  var opts = {
+    UserPoolId: state.userPoolId,
+    Username: params.username
+  };
+
+  var c = new CognitoIdentityServiceProvider();
+  c.adminDisableUser(opts, (err, data) => {
+    if (!err) {
+      callback.onSuccess(data);
+    } else {
+      callback.onFailure(err);
+    }
+  });
+}
+
+export function enableUser(params, callback) {
+  var opts = {
+    UserPoolId: state.userPoolId,
+    Username: params.username
+  };
+
+  var c = new CognitoIdentityServiceProvider();
+  c.adminEnableUser(opts, (err, data) => {
+    if (!err) {
+      callback.onSuccess(data);
+    } else {
+      callback.onFailure(err);
+    }
+  });
+}
