@@ -1,0 +1,81 @@
+exports[`test Match component. 1`] = `
+<div>
+  <h2>
+    Create a new user.
+  </h2>
+  <TextField
+    disabled={false}
+    floatingLabelFixed={false}
+    floatingLabelText="Username"
+    fullWidth={false}
+    multiLine={false}
+    onChange={[Function]}
+    rows={1}
+    type="text"
+    underlineShow={true} />
+  <br />
+  <TextField
+    disabled={false}
+    floatingLabelFixed={false}
+    floatingLabelText="Email"
+    fullWidth={false}
+    multiLine={false}
+    onChange={[Function]}
+    rows={1}
+    type="text"
+    underlineShow={true} />
+  <br />
+  <TextField
+    disabled={false}
+    floatingLabelFixed={false}
+    floatingLabelText="Password"
+    fullWidth={false}
+    multiLine={false}
+    onChange={[Function]}
+    rows={1}
+    type="password"
+    underlineShow={true} />
+  <br />
+  <Checkbox
+    disabled={false}
+    label="Notify student with their account credentials."
+    labelPosition="right"
+    style={
+      Object {
+        "marginTop": "1rem",
+      }
+    } />
+  <br />
+  <RaisedButton
+    disabled={false}
+    fullWidth={false}
+    label="Save"
+    labelPosition="after"
+    onTouchTap={[Function]}
+    primary={true}
+    secondary={false}
+    style={
+      Object {
+        "margin": "12px",
+      }
+    } />
+  <RaisedButton
+    disabled={false}
+    fullWidth={false}
+    label="Cancel"
+    labelPosition="after"
+    onTouchTap={[Function]}
+    primary={false}
+    secondary={false}
+    style={
+      Object {
+        "margin": "12px",
+      }
+    } />
+  <Snackbar
+    autoHideDuration={4000}
+    message="Error, this message should not be seen."
+    onRequestClose={[Function]}
+    open={false} />
+</div>
+`;
