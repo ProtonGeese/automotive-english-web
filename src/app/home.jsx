@@ -1,13 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router';
 import {GridList, GridTile} from 'material-ui/GridList';
-import FlatButton from 'material-ui/FlatButton';
 
 import ActionFace from 'material-ui/svg-icons/action/face';
 import ActionAssignment from 'material-ui/svg-icons/action/assignment';
-import ActionInfo from 'material-ui/svg-icons/action/info';
-import ActionFavorite from 'material-ui/svg-icons/action/favorite';
-import ActionHelp from 'material-ui/svg-icons/action/help';
 import ActionBook from 'material-ui/svg-icons/action/book';
 import SocialPerson from 'material-ui/svg-icons/social/person';
 
@@ -21,7 +17,7 @@ class TraVerseHome extends React.Component {
 
   static list_style = {
     width: 500,
-    height: 600,
+    height: 400,
     overflowY: 'auto'
   }
 
@@ -63,16 +59,6 @@ class TraVerseHome extends React.Component {
           title: 'Instructors',
           description: 'View and manage instructors',
           link: '/instructors'
-        },
-        {
-          icon: (
-            <ActionFavorite
-              style={TraVerseHome.icon_style}
-            />
-          ),
-          title: 'About',
-          description: 'Learn more about the AEP system',
-          link: '/about'
         },
         {
           icon: (
