@@ -1,13 +1,13 @@
-# OSU Honda Automotive English Program
+# TraVerse ESL Program
 
-The instructor and administrator portion of the automotive English platform.
+The instructor and administrator portion of the TraVerse ESL system.
 
 ## Building
 
 * Clone the repository.
 
 ```bash
-git clone https://github.com/ProtonGeese/automotive-english-web.git .
+git clone https://github.com/ProtonGeese/traverse-web.git .
 ```
 
 * Install the dependencies.
@@ -20,6 +20,12 @@ npm install
 
 ```bash
 npm run build
+```
+
+* Run the provided development server.
+
+```
+npm run serve
 ```
 
 * Continuously build the site whenever it changes.
