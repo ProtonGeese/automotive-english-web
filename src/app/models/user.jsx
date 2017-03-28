@@ -63,6 +63,14 @@ export function updateUser(params, callback) {
       {
         Name: 'email_verified',
         Value: 'true'
+      },
+      {
+        Name: 'custom:level',
+        Value: params.level.toString()
+      },
+      {
+        Name: 'custom:instructor',
+        Value: params.instructor
       }
     ]
   };

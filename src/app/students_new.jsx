@@ -155,7 +155,7 @@ export default class TraVerseStudent extends React.Component {
           style={TraVerseStudent.menu_style}
         >
           { [1,2,3,4,5,6,7,8,9,10].map((x, i) => {
-            return (<MenuItem value={i} primaryText={`Level ${i}`} />);
+            return (<MenuItem key={i} value={i} primaryText={`Level ${i}`} />);
           })}
         </SelectField><br/>
         <TextField

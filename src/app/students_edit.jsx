@@ -2,6 +2,8 @@ import React from 'react';
 import { hashHistory } from 'react-router';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import LinearProgress from 'material-ui/LinearProgress';
 import Snackbar from 'material-ui/Snackbar';
 
@@ -14,6 +16,11 @@ export default class TraVerseStudentEdit extends React.Component {
 
   static check_style = {
     'marginTop': '1rem'
+  }
+
+  static menu_style = {
+    'marginTop': '1rem',
+    'padding': '0'
   }
 
   static progress_style = {
@@ -29,6 +36,8 @@ export default class TraVerseStudentEdit extends React.Component {
     this.state = {
       username: '',
       email: '',
+      instructor: '',
+      level: 0,
       completed: 0,
       saveEnabled: true,
       saveMessage: 'Save',
@@ -43,12 +52,24 @@ export default class TraVerseStudentEdit extends React.Component {
       username: this.props.params.userId
     }, {
       onSuccess: (data) => {
-        this.setState({
-          username: data.Username,
-          email: data.UserAttributes.find((a) => {
-            return a.Name === 'email';
-          }).Value
+        var newState = {};
+        
+        newState.username = data.Username;
+        newState.email = data.UserAttributes.find((a) => {
+          return a.Name === 'email';
+        }).Value;
+
+        newState.level = data.UserAttributes.find((a) => {
+          return a.Name === 'custom:level';
         });
+        newState.level = newState.level ? parseInt(newState.level.Value) : 0;
+
+        newState.instructor = data.UserAttributes.find((a) => {
+          return a.Name === 'custom:instructor';
+        });
+        newState.instructor = newState.instructor ? newState.instructor.Value : '';
+
+        this.setState(newState);
       },
       onFailure: () => {
         this.setState({
@@ -75,7 +96,9 @@ export default class TraVerseStudentEdit extends React.Component {
 
     updateUser({
       username: this.state.username,
-      email: this.state.email
+      email: this.state.email,
+      level: this.state.level,
+      instructor: this.state.instructor
     }, {
       onSuccess: () => {
         this.setState({
@@ -122,6 +145,18 @@ export default class TraVerseStudentEdit extends React.Component {
     });
   }
 
+  handleLevelChange = (event, newValue) => {
+    this.setState({
+      level: newValue
+    });
+  }
+
+  handleInstructorChange = (event, newValue) => {
+    this.setState({
+      instructor: newValue
+    });
+  }
+
   render() {
     return (
       <div>
@@ -136,6 +171,21 @@ export default class TraVerseStudentEdit extends React.Component {
           value={this.state.email}
           onChange={this.handleEmailChange}
         /><br/>
+        <TextField
+          floatingLabelText="Instructor"
+          value={this.state.instructor}
+          onChange={this.handleInstructorChange}
+        /><br/>
+        <SelectField
+          value={this.state.level}
+          onChange={this.handleLevelChange}
+          maxHeight={200}
+          style={TraVerseStudentEdit.menu_style}
+        >
+          { [1,2,3,4,5,6,7,8,9,10].map((x, i) => {
+            return (<MenuItem key={i} value={i} primaryText={`Level ${i}`} />);
+          })}
+        </SelectField><br/>
         <RaisedButton
           label={this.state.saveMessage}
           primary={true}
