@@ -13,7 +13,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import { listLessons, deleteLesson } from './models/lesson.jsx';
 
-class HondaLessons extends React.Component {
+class TraVerseLessons extends React.Component {
 
   populateTableData = () => {
     listLessons({
@@ -191,4 +191,4 @@ class HondaLessons extends React.Component {
   }
 }
 
-export default HondaLessons;
+export default TraVerseLessons;

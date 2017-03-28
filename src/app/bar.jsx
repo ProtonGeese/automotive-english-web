@@ -7,7 +7,7 @@ import FlatButton from 'material-ui/FlatButton';
 import { Link } from 'react-router';
 import { logout, isLoggedIn } from './models/auth.jsx';
 
-export default class HondaBar extends React.Component {
+export default class TraVerseBar extends React.Component {
   constructor(props) {
     super(props);
 
@@ -29,7 +29,7 @@ export default class HondaBar extends React.Component {
     return (
       <div>
         <AppBar
-          title="Honda Automotive"
+          title="TraVerse"
           zDepth={1}
           onLeftIconButtonTouchTap={this.handleToggle}
           iconElementRight={

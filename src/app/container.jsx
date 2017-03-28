@@ -1,7 +1,7 @@
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
-import HondaBar from './bar.jsx';
+import TraVerseBar from './bar.jsx';
 
 const paper_style = {
   'maxWidth': '80rem',
@@ -33,12 +33,12 @@ const cc_style = {
 const AppContainer = (props) => (
   <MuiThemeProvider>
     <div style={container_style}>
-      <HondaBar/>
+      <TraVerseBar/>
       <Paper zDepth={1} style={paper_style}>
         {props.children}
       </Paper>
       <div style={footer_style}>
-        <p style={cc_style}>Copyright 2017 Honda</p>
+        <p style={cc_style}>Copyright 2017 The Ohio State University.</p>
       </div>
     </div>
   </MuiThemeProvider>

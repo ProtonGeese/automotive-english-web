@@ -7,7 +7,7 @@ import Snackbar from 'material-ui/Snackbar';
 
 import { getInstructor, updateInstructor } from './models/instructor.jsx';
 
-export default class HondaInstructorEdit extends React.Component {
+export default class TraVerseInstructorEdit extends React.Component {
   static button_style = {
     'margin': '12px'
   }
@@ -140,20 +140,20 @@ export default class HondaInstructorEdit extends React.Component {
           label={this.state.saveMessage}
           primary={true}
           disabled={!this.state.saveEnabled}
-          style={HondaInstructorEdit.button_style}
+          style={TraVerseInstructorEdit.button_style}
           onTouchTap={this.handleSaveRequest}
         />
         <RaisedButton
           label="Cancel"
           disabled={!this.state.saveEnabled}
-          style={HondaInstructorEdit.button_style}
+          style={TraVerseInstructorEdit.button_style}
           onTouchTap={this.handleCancelRequest}
         />
         {
           this.state.progressHidden
             ? null
             : <LinearProgress
-              style={HondaInstructorEdit.progress_style}
+              style={TraVerseInstructorEdit.progress_style}
               mode="determinate"
               value={this.state.completed}
             />

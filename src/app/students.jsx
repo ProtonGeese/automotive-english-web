@@ -20,7 +20,7 @@ import ActionPowerSettingsNew from 'material-ui/svg-icons/action/power-settings-
 
 import { listUsers, deleteUser, disableUser, enableUser } from './models/user.jsx';
 
-class HondaStudents extends React.Component {
+class TraVerseStudents extends React.Component {
 
   populateTableData = () => {
     listUsers(null, {
@@ -275,4 +275,4 @@ class HondaStudents extends React.Component {
   }
 }
 
-export default HondaStudents;
+export default TraVerseStudents;

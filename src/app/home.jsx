@@ -11,7 +11,7 @@ import ActionHelp from 'material-ui/svg-icons/action/help';
 import ActionBook from 'material-ui/svg-icons/action/book';
 import SocialPerson from 'material-ui/svg-icons/social/person';
 
-class HondaHome extends React.Component {
+class TraVerseHome extends React.Component {
 
   static root_style = {
     display: 'flex',
@@ -37,7 +37,7 @@ class HondaHome extends React.Component {
         {
           icon: (
             <ActionFace
-              style={HondaHome.icon_style}
+              style={TraVerseHome.icon_style}
             />
           ),
           title: 'Students',
@@ -47,7 +47,7 @@ class HondaHome extends React.Component {
         {
           icon: (
             <ActionAssignment
-              style={HondaHome.icon_style}
+              style={TraVerseHome.icon_style}
             />
           ),
           title: 'Lessons',
@@ -57,7 +57,7 @@ class HondaHome extends React.Component {
         {
           icon: (
             <SocialPerson 
-              style={HondaHome.icon_style}
+              style={TraVerseHome.icon_style}
             />
           ),
           title: 'Instructors',
@@ -67,7 +67,7 @@ class HondaHome extends React.Component {
         {
           icon: (
             <ActionFavorite
-              style={HondaHome.icon_style}
+              style={TraVerseHome.icon_style}
             />
           ),
           title: 'About',
@@ -77,7 +77,7 @@ class HondaHome extends React.Component {
         {
           icon: (
             <ActionBook
-              style={HondaHome.icon_style}
+              style={TraVerseHome.icon_style}
             />
           ),
           title: 'Documentation',
@@ -91,11 +91,11 @@ class HondaHome extends React.Component {
   render() {
     return (
       <div
-        style={HondaHome.root_style}
+        style={TraVerseHome.root_style}
       >
         <GridList
           cellHeight={180}
-          style={HondaHome.list_style}
+          style={TraVerseHome.list_style}
         >
         {this.state.gridData.map((e) => (
           <GridTile
@@ -114,4 +114,4 @@ class HondaHome extends React.Component {
   }
 }
 
-export default HondaHome;
+export default TraVerseHome;

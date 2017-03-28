@@ -7,7 +7,7 @@ import LinearProgress from 'material-ui/LinearProgress';
 import Snackbar from 'material-ui/Snackbar'; 
 import { createNewInstructor } from './models/instructor.jsx';
 
-export default class HondaStudent extends React.Component {
+export default class TraVerseStudent extends React.Component {
   static button_style = {
     'margin': '12px'
   }
@@ -128,26 +128,26 @@ export default class HondaStudent extends React.Component {
         /><br/>
         <Checkbox
           label="Notify student with their account credentials."
-          style={HondaStudent.check_style}
+          style={TraVerseStudent.check_style}
         /><br/>
         <RaisedButton
           label={this.state.saveMessage}
           primary={true}
           disabled={!this.state.saveEnabled}
-          style={HondaStudent.button_style}
+          style={TraVerseStudent.button_style}
           onTouchTap={this.handleSaveRequest}
         />
         <RaisedButton
           label="Cancel"
           disabled={!this.state.saveEnabled}
-          style={HondaStudent.button_style}
+          style={TraVerseStudent.button_style}
           onTouchTap={this.handleCancelRequest}
         />
         {
           this.state.progressHidden
             ? null
             : <LinearProgress
-              style={HondaStudent.progress_style}
+              style={TraVerseStudent.progress_style}
               mode="determinate"
               value={this.state.completed}
             />

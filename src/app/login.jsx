@@ -4,7 +4,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import { login } from './models/auth.jsx';
 
-export default class HondaLogin extends React.Component {
+export default class TraVerseLogin extends React.Component {
   static button_style = {
     margin: '12px',
     float: 'right'
@@ -116,7 +116,7 @@ export default class HondaLogin extends React.Component {
             label={this.state.buttonText}
             primary={true}
             disabled={!this.state.buttonEnabled}
-            style={HondaLogin.button_style}
+            style={TraVerseLogin.button_style}
             onTouchTap={this.handleLoginRequest}
           />
         </div>
@@ -134,7 +134,7 @@ export default class HondaLogin extends React.Component {
             label={this.state.buttonText}
             primary={true}
             disabled={!this.state.buttonEnabled}
-            style={HondaLogin.button_style}
+            style={TraVerseLogin.button_style}
             value={this.state.password}
             onTouchTap={this.handleUpdatePasswordRequest}
           />

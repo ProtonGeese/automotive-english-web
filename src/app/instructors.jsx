@@ -19,7 +19,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import { listInstructors, deleteInstructor } from './models/instructor.jsx';
 
-class HondaInstructors extends React.Component { 
+class TraVerseInstructors extends React.Component { 
 
   populateTableData = () => {
     listInstructors(null, {
@@ -220,4 +220,4 @@ class HondaInstructors extends React.Component {
   }
 }
 
-export default HondaInstructors;
+export default TraVerseInstructors;

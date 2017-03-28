@@ -5,21 +5,21 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import AppContainer from './container.jsx';
 
-import HondaStudents from './students.jsx';
-import HondaStudentNew from './students_new.jsx';
-import HondaStudentEdit from './students_edit.jsx';
+import TraVerseStudents from './students.jsx';
+import TraVerseStudentNew from './students_new.jsx';
+import TraVerseStudentEdit from './students_edit.jsx';
 
-import HondaInstructors from './instructors.jsx';
-import HondaInstructorNew from './instructors_new.jsx';
-import HondaInstructorEdit from './instructors_edit.jsx';
+import TraVerseInstructors from './instructors.jsx';
+import TraVerseInstructorNew from './instructors_new.jsx';
+import TraVerseInstructorEdit from './instructors_edit.jsx';
 
-import HondaConversations from './conversations.jsx';
+import TraVerseConversations from './conversations.jsx';
 import PostNew from './conversation.jsx';
-import HondaHome from './home.jsx';
-import HondaLogin from './login.jsx';
-import HondaLessons from './lessons.jsx';
-import HondaLessonsNew from './lessons_new.jsx';
-import HondaLessonsEdit from './lessons_edit.jsx';
+import TraVerseHome from './home.jsx';
+import TraVerseLogin from './login.jsx';
+import TraVerseLessons from './lessons.jsx';
+import TraVerseLessonsNew from './lessons_new.jsx';
+import TraVerseLessonsEdit from './lessons_edit.jsx';
 import { isLoggedIn, resume } from './models/auth.jsx';
 
 // Needed for onTouchTap
@@ -47,7 +47,7 @@ class App extends React.Component {
     return (
       <Router history={hashHistory}>
         <Route path="/login" component={AppContainer}>
-          <IndexRoute component={HondaLogin}/>
+          <IndexRoute component={TraVerseLogin}/>
         </Route>
         <Route
           path="/"
@@ -55,18 +55,18 @@ class App extends React.Component {
           onEnter={this.requireAuthEnter}
           onChange={this.requireAuthChange}
         >
-          <IndexRoute component={HondaHome}/>
-          <Route path="students" component={HondaStudents}/>
-          <Route path="students/new" component={HondaStudentNew}/>
-          <Route path="students/:userId/edit" component={HondaStudentEdit}/>
-          <Route path="instructors" component={HondaInstructors}/>
-          <Route path="instructors/new" component={HondaInstructorNew}/>
-          <Route path="instructors/:userId/edit" component={HondaInstructorEdit}/>
-          <Route path="conversations" component={HondaConversations}/>
+          <IndexRoute component={TraVerseHome}/>
+          <Route path="students" component={TraVerseStudents}/>
+          <Route path="students/new" component={TraVerseStudentNew}/>
+          <Route path="students/:userId/edit" component={TraVerseStudentEdit}/>
+          <Route path="instructors" component={TraVerseInstructors}/>
+          <Route path="instructors/new" component={TraVerseInstructorNew}/>
+          <Route path="instructors/:userId/edit" component={TraVerseInstructorEdit}/>
+          <Route path="conversations" component={TraVerseConversations}/>
           <Route path="conversations/new" component={PostNew}/>
-          <Route path='lessons' component={HondaLessons}/>
-          <Route path='lessons/new' component={HondaLessonsNew}/>
-          <Route path='lessons/:lessonId/edit' component={HondaLessonsEdit}/>
+          <Route path='lessons' component={TraVerseLessons}/>
+          <Route path='lessons/new' component={TraVerseLessonsNew}/>
+          <Route path='lessons/:lessonId/edit' component={TraVerseLessonsEdit}/>
         </Route>
       </Router>
     );

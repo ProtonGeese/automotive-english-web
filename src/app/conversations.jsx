@@ -5,7 +5,7 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import { Link } from 'react-router';
 
-const HondaConversations = () => (
+const TraVerseConversations = () => (
   <div>
         <Toolbar>
             <ToolbarGroup>
@@ -35,4 +35,4 @@ const HondaConversations = () => (
   </div>
 );
 
-export default HondaConversations;
+export default TraVerseConversations;
