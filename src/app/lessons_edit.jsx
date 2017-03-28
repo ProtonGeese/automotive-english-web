@@ -1,5 +1,7 @@
 import React from 'react';
 import { hashHistory } from 'react-router';
+import reactMixin from 'react-mixin';
+import TimerMixin from 'react-timer-mixin';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import LinearProgress from 'material-ui/LinearProgress';
@@ -73,7 +75,7 @@ export default class TraVerseLessonsEdit extends React.Component {
           snackbarMessage: 'Lesson successfully updated.'
         });
 
-        setTimeout(() => {
+        this.setTimeout(() => {
           this.setState({
             saveEnabled: true,
             saveMessage: 'Save',
@@ -89,7 +91,7 @@ export default class TraVerseLessonsEdit extends React.Component {
           snackbarMessage: 'Could not update lesson.'
         });
 
-        setTimeout(() => {
+        this.setTimeout(() => {
           this.setState({
             saveEnabled: true,
             saveMessage: 'Save',
@@ -169,3 +171,5 @@ export default class TraVerseLessonsEdit extends React.Component {
     );
   }
 }
+
+reactMixin(TraVerseLessonsEdit.prototype, TimerMixin);

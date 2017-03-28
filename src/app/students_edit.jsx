@@ -1,5 +1,7 @@
 import React from 'react';
 import { hashHistory } from 'react-router';
+import reactMixin from 'react-mixin';
+import TimerMixin from 'react-timer-mixin';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
@@ -107,7 +109,7 @@ export default class TraVerseStudentEdit extends React.Component {
           snackbarMessage: 'User successfully saved.'
         });
 
-        setTimeout(() => {
+        this.setTimeout(() => {
           this.setState({
             saveEnabled: true,
             saveMessage: 'Save',
@@ -123,7 +125,7 @@ export default class TraVerseStudentEdit extends React.Component {
           snackbarMessage: 'Could not save user.'
         });
 
-        setTimeout(() => {
+        this.setTimeout(() => {
           this.setState({
             saveEnabled: true,
             saveMessage: 'Save',
@@ -218,3 +220,5 @@ export default class TraVerseStudentEdit extends React.Component {
     );
   }
 }
+
+reactMixin(TraVerseStudentEdit.prototype, TimerMixin);

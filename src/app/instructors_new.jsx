@@ -1,5 +1,7 @@
 import React from 'react';
 import { hashHistory } from 'react-router';
+import reactMixin from 'react-mixin';
+import TimerMixin from 'react-timer-mixin';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Checkbox from 'material-ui/Checkbox';
@@ -7,7 +9,7 @@ import LinearProgress from 'material-ui/LinearProgress';
 import Snackbar from 'material-ui/Snackbar'; 
 import { createNewInstructor } from './models/instructor.jsx';
 
-export default class TraVerseStudent extends React.Component {
+export default class TraVerseInstructorNew extends React.Component {
   static button_style = {
     'margin': '12px'
   }
@@ -53,7 +55,7 @@ export default class TraVerseStudent extends React.Component {
           snackbarMessage: 'Instructor successfully saved.'
         });
         
-        setTimeout(() => {
+        this.setTimeout(() => {
           this.setState({
             saveEnabled: true,
             saveMessage: 'Save',
@@ -69,7 +71,7 @@ export default class TraVerseStudent extends React.Component {
           snackbarMessage: 'Could not create instructor.'
         });
 
-        setTimeout(() => {
+        this.setTimeout(() => {
           this.setState({
             saveEnabled: true,
             saveMessage: 'Save',
@@ -128,26 +130,26 @@ export default class TraVerseStudent extends React.Component {
         /><br/>
         <Checkbox
           label="Notify student with their account credentials."
-          style={TraVerseStudent.check_style}
+          style={TraVerseInstructorNew.check_style}
         /><br/>
         <RaisedButton
           label={this.state.saveMessage}
           primary={true}
           disabled={!this.state.saveEnabled}
-          style={TraVerseStudent.button_style}
+          style={TraVerseInstructorNew.button_style}
           onTouchTap={this.handleSaveRequest}
         />
         <RaisedButton
           label="Cancel"
           disabled={!this.state.saveEnabled}
-          style={TraVerseStudent.button_style}
+          style={TraVerseInstructorNew.button_style}
           onTouchTap={this.handleCancelRequest}
         />
         {
           this.state.progressHidden
             ? null
             : <LinearProgress
-              style={TraVerseStudent.progress_style}
+              style={TraVerseInstructorNew.progress_style}
               mode="determinate"
               value={this.state.completed}
             />
@@ -162,3 +164,5 @@ export default class TraVerseStudent extends React.Component {
     );
   }
 }
+
+reactMixin(TraVerseInstructorNew.prototype, TimerMixin);
