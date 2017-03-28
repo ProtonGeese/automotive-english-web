@@ -14,6 +14,14 @@ export function createNewUser(params, callback) {
       {
         Name: 'email',
         Value: params.email
+      },
+      {
+        Name: 'custom:level',
+        Value: params.level.toString()
+      },
+      {
+        Name: 'custom:instructor',
+        Value: params.instructor
       }
     ]
   };

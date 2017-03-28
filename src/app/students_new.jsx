@@ -2,6 +2,8 @@ import React from 'react';
 import { hashHistory } from 'react-router';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import Checkbox from 'material-ui/Checkbox';
 import LinearProgress from 'material-ui/LinearProgress';
 import Snackbar from 'material-ui/Snackbar'; 
@@ -16,6 +18,11 @@ export default class TraVerseStudent extends React.Component {
     'marginTop': '1rem'
   }
 
+  static menu_style = {
+    'marginTop': '1rem',
+    'padding': '0'
+  }
+  
   static progress_style = {
     'marginTop': '1rem'
   }
@@ -25,6 +32,8 @@ export default class TraVerseStudent extends React.Component {
     this.state = {
       username: '',
       password: '',
+      instructor: '',
+      level: 0,
       completed: 0,
       saveEnabled: true,
       saveMessage: 'Save',
@@ -44,7 +53,9 @@ export default class TraVerseStudent extends React.Component {
     createNewUser({
       username: this.state.username,
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
+      level: this.state.level,
+      instructor: this.state.instructor
     }, {
       onSuccess: () => {
         this.setState({
@@ -103,6 +114,18 @@ export default class TraVerseStudent extends React.Component {
     });
   }
 
+  handleLevelChange = (event, newValue) => {
+    this.setState({
+      level: newValue
+    });
+  }
+
+  handleInstructorChange = (event, newValue) => {
+    this.setState({
+      instructor: newValue
+    });
+  }
+
   handlePasswordChange = (event, newValue) => {
     this.setState({
       password: newValue
@@ -121,6 +144,20 @@ export default class TraVerseStudent extends React.Component {
           floatingLabelText="Email"
           onChange={this.handleEmailChange}
         /><br/>
+        <TextField
+          floatingLabelText="Instructor"
+          onChange={this.handleInstructorChange}
+        /><br/>
+        <SelectField
+          value={this.state.level}
+          onChange={this.handleLevelChange}
+          maxHeight={200}
+          style={TraVerseStudent.menu_style}
+        >
+          { [1,2,3,4,5,6,7,8,9,10].map((x, i) => {
+            return (<MenuItem value={i} primaryText={`Level ${i}`} />);
+          })}
+        </SelectField><br/>
         <TextField
           floatingLabelText="Password"
           type="password"
