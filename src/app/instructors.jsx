@@ -21,6 +21,10 @@ import { listInstructors, deleteInstructor } from './models/instructor.jsx';
 
 class TraVerseInstructors extends React.Component { 
 
+  static link_style = {
+    'color': '#0e4e8e'
+  };
+  
   populateTableData = () => {
     listInstructors(null, {
       onSuccess: (data) => {
@@ -208,8 +212,8 @@ class TraVerseInstructors extends React.Component {
           >
             {this.state.tableData.map( (row, index) => (
               <TableRow key={index}>
-                <TableRowColumn><Link to={'/instructors/' + row.username}>{row.username}</Link></TableRowColumn>
-                <TableRowColumn><Mailto email={row.email}>{row.email}</Mailto></TableRowColumn>
+                <TableRowColumn><Link style={TraVerseInstructors.link_style} to={'/instructors/' + row.username}>{row.username}</Link></TableRowColumn>
+                <TableRowColumn><Mailto style={TraVerseInstructors.link_style} email={row.email}>{row.email}</Mailto></TableRowColumn>
                 <TableRowColumn><FlatButton label="Details"/></TableRowColumn>
               </TableRow>
             ))}

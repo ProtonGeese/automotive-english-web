@@ -22,6 +22,10 @@ import { listUsers, deleteUser, disableUser, enableUser } from './models/user.js
 
 class TraVerseStudents extends React.Component {
 
+  static link_style = {
+    'color': '#0e4e8e'
+  };
+
   populateTableData = () => {
     listUsers(null, {
       onSuccess: (data) => {
@@ -274,8 +278,8 @@ class TraVerseStudents extends React.Component {
           >
             {this.state.tableData.map( (row, index) => (
               <TableRow key={index}>
-                <TableRowColumn><Link to={'/students/' + row.username}>{row.username}</Link></TableRowColumn>
-                <TableRowColumn><Mailto email={row.email}>{row.email}</Mailto></TableRowColumn>
+                <TableRowColumn><Link style={TraVerseStudents.link_style} to={'/students/' + row.username}>{row.username}</Link></TableRowColumn>
+                <TableRowColumn><Mailto style={TraVerseStudents.link_style} email={row.email}>{row.email}</Mailto></TableRowColumn>
                 <TableRowColumn>{row.enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
                 <TableRowColumn>{row.instructor}</TableRowColumn>
                 <TableRowColumn>{row.level}</TableRowColumn>

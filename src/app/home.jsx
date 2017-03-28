@@ -86,7 +86,7 @@ class TraVerseHome extends React.Component {
         {this.state.gridData.map((e) => (
           <GridTile
             containerElement={<Link to={e.link} />}
-            key={e.img}
+            key={e.title}
             title={e.title}
             subtitle={e.description}
             titleBackground='rgba(36, 36, 36, 1)'

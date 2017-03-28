@@ -34,6 +34,7 @@ export default class TraVerseLessonsNew extends React.Component {
     this.state = {
       title: '',
       description: '',
+      level: 0,
       completed: 0,
       saveEnabled: true,
       saveMessage: 'Save',
