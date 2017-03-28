@@ -4,6 +4,8 @@ import reactMixin from 'react-mixin';
 import TimerMixin from 'react-timer-mixin';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import LinearProgress from 'material-ui/LinearProgress';
 import Snackbar from 'material-ui/Snackbar';
 
@@ -20,6 +22,11 @@ export default class TraVerseLessonsNew extends React.Component {
 
   static progress_style = {
     'marginTop': '1rem'
+  }
+
+  static menu_style = {
+    'marginTop': '1rem',
+    'padding': '0'
   }
 
   constructor(props) {
@@ -45,7 +52,8 @@ export default class TraVerseLessonsNew extends React.Component {
 
     createNewLesson({
       title: this.state.title,
-      description: this.state.description
+      description: this.state.description,
+      level: this.state.level
     }, {
       onSuccess: () => {
         this.setState({
@@ -104,6 +112,12 @@ export default class TraVerseLessonsNew extends React.Component {
     });
   }
 
+  handleLevelChange = (event, newValue) => {
+    this.setState({
+      level: newValue
+    });
+  }
+
   render() {
     return (
       <div>
@@ -116,6 +130,16 @@ export default class TraVerseLessonsNew extends React.Component {
           floatingLabelText="Description"
           onChange={this.handleDescriptionChange}
         /><br/>
+        <SelectField
+          value={this.state.level}
+          onChange={this.handleLevelChange}
+          maxHeight={200}
+          style={TraVerseLessonsNew.menu_style}
+        >
+          { [1,2,3,4,5,6,7,8,9,10].map((x, i) => {
+            return (<MenuItem key={i} value={i} primaryText={`Level ${i}`} />);
+          })}
+        </SelectField><br/>
         <RaisedButton
           label={this.state.saveMessage}
           primary={true}

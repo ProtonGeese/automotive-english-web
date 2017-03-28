@@ -44,7 +44,8 @@ export function createNewLesson(params, callback) {
     Item: {
       lessonId: uuid.v4(),
       title: params.title,
-      description: params.description
+      description: params.description,
+      level: params.level
     }
   };
 
@@ -77,12 +78,14 @@ export function deleteLesson(params, callback) {
 }
 
 export function updateLesson(params, callback) {
+  console.log(params.level);
   var opts = {
     TableName: state.tableName,
     Item: {
       lessonId: params.lessonId,
       title: params.title,
-      description: params.description
+      description: params.description,
+      level: params.level
     }
   };
 

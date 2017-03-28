@@ -169,9 +169,10 @@ class TraVerseLessons extends React.Component {
         >
           <TableHeader>
             <TableRow>
-              <TableHeaderColumn>ID</TableHeaderColumn>
               <TableHeaderColumn>Title</TableHeaderColumn>
               <TableHeaderColumn>Description</TableHeaderColumn>
+              <TableHeaderColumn>Level</TableHeaderColumn>
+              <TableHeaderColumn>ID</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody
@@ -179,9 +180,10 @@ class TraVerseLessons extends React.Component {
           >
             {this.state.tableData.map( (row, index) => (
               <TableRow key={index}>
-                <TableRowColumn>{row.lessonId}</TableRowColumn>
                 <TableRowColumn>{row.title}</TableRowColumn>
                 <TableRowColumn>{row.description}</TableRowColumn>
+                <TableRowColumn>{row.level}</TableRowColumn>
+                <TableRowColumn>{row.lessonId}</TableRowColumn>
               </TableRow>
             ))}
           </TableBody>
