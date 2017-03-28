@@ -33,6 +33,16 @@ class TraVerseStudents extends React.Component {
               return a.Name === 'email';
             }).Value;
 
+            newValue.level = e.Attributes.find((a) => {
+              return a.Name === 'custom:level';
+            });
+            newValue.level = newValue.level ? newValue.level.Value : 'Unassigned';
+
+            newValue.instructor = e.Attributes.find((a) => {
+              return a.Name === 'custom:instructor';
+            });
+            newValue.instructor = newValue.instructor ? newValue.instructor.Value : 'None';
+
             newValue.username = e.Username;
 
             newValue.enabled = e.Enabled;
@@ -254,6 +264,8 @@ class TraVerseStudents extends React.Component {
               <TableHeaderColumn>Username</TableHeaderColumn>
               <TableHeaderColumn>Email</TableHeaderColumn>
               <TableHeaderColumn>State</TableHeaderColumn>
+              <TableHeaderColumn>Instructor</TableHeaderColumn>
+              <TableHeaderColumn>Level</TableHeaderColumn>
               <TableHeaderColumn>More</TableHeaderColumn>
             </TableRow>
           </TableHeader>
@@ -265,6 +277,8 @@ class TraVerseStudents extends React.Component {
                 <TableRowColumn><Link to={'/students/' + row.username}>{row.username}</Link></TableRowColumn>
                 <TableRowColumn><Mailto email={row.email}>{row.email}</Mailto></TableRowColumn>
                 <TableRowColumn>{row.enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
+                <TableRowColumn>{row.instructor}</TableRowColumn>
+                <TableRowColumn>{row.level}</TableRowColumn>
                 <TableRowColumn><FlatButton label="Details"/></TableRowColumn>
               </TableRow>
             ))}
