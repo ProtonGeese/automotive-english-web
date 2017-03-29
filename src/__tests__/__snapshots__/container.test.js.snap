@@ -28,6 +28,112 @@ exports[`test Match component. 1`] = `
   <TextField
     disabled={false}
     floatingLabelFixed={false}
+    floatingLabelText="Instructor"
+    fullWidth={false}
+    multiLine={false}
+    onChange={[Function]}
+    rows={1}
+    type="text"
+    underlineShow={true} />
+  <br />
+  <SelectField
+    autoWidth={false}
+    disabled={false}
+    fullWidth={false}
+    maxHeight={200}
+    onChange={[Function]}
+    style={
+      Object {
+        "marginTop": "1rem",
+        "padding": "0",
+      }
+    }
+    value={0}>
+    <MenuItem
+      checked={false}
+      desktop={false}
+      disabled={false}
+      focusState="none"
+      insetChildren={false}
+      primaryText="Level 0"
+      value={0} />
+    <MenuItem
+      checked={false}
+      desktop={false}
+      disabled={false}
+      focusState="none"
+      insetChildren={false}
+      primaryText="Level 1"
+      value={1} />
+    <MenuItem
+      checked={false}
+      desktop={false}
+      disabled={false}
+      focusState="none"
+      insetChildren={false}
+      primaryText="Level 2"
+      value={2} />
+    <MenuItem
+      checked={false}
+      desktop={false}
+      disabled={false}
+      focusState="none"
+      insetChildren={false}
+      primaryText="Level 3"
+      value={3} />
+    <MenuItem
+      checked={false}
+      desktop={false}
+      disabled={false}
+      focusState="none"
+      insetChildren={false}
+      primaryText="Level 4"
+      value={4} />
+    <MenuItem
+      checked={false}
+      desktop={false}
+      disabled={false}
+      focusState="none"
+      insetChildren={false}
+      primaryText="Level 5"
+      value={5} />
+    <MenuItem
+      checked={false}
+      desktop={false}
+      disabled={false}
+      focusState="none"
+      insetChildren={false}
+      primaryText="Level 6"
+      value={6} />
+    <MenuItem
+      checked={false}
+      desktop={false}
+      disabled={false}
+      focusState="none"
+      insetChildren={false}
+      primaryText="Level 7"
+      value={7} />
+    <MenuItem
+      checked={false}
+      desktop={false}
+      disabled={false}
+      focusState="none"
+      insetChildren={false}
+      primaryText="Level 8"
+      value={8} />
+    <MenuItem
+      checked={false}
+      desktop={false}
+      disabled={false}
+      focusState="none"
+      insetChildren={false}
+      primaryText="Level 9"
+      value={9} />
+  </SelectField>
+  <br />
+  <TextField
+    disabled={false}
+    floatingLabelFixed={false}
     floatingLabelText="Password"
     fullWidth={false}
     multiLine={false}
