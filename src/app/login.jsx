@@ -100,7 +100,7 @@ export default class TraVerseLogin extends React.Component {
         <div>
           <h2>Login</h2>
           <TextField
-            floatingLabelText="Email"
+            floatingLabelText="Username"
             onChange={this.handleUsernameChange}
             errorText={this.state.errorText}
             value={this.state.username}
