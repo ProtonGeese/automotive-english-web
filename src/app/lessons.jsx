@@ -77,6 +77,7 @@ class TraVerseLessons extends React.Component {
           snackbarOpen: true,
           snackbarMessage: 'Lesson successfully deleted.'
         });
+        this.populateTableData();
       },
       onFailure: () => {
         this.setState({
