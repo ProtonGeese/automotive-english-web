@@ -94,6 +94,7 @@ class TraVerseInstructors extends React.Component {
           snackbarOpen: true,
           snackbarMessage: 'Instructor successfully deleted.'
         });
+        this.populateTableData();
       },
       onFailure: () => {
         this.setState({

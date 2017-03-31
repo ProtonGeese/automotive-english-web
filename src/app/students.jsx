@@ -110,6 +110,7 @@ class TraVerseStudents extends React.Component {
           snackbarOpen: true,
           snackbarMessage: 'User successfully deleted.'
         });
+        this.populateTableData();
       },
       onFailure: () => {
         this.setState({
