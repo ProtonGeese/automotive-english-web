@@ -2,15 +2,15 @@ import { moveUp, moveDown } from '../app/utils/list.jsx';
 
 describe('moveUp on empty array', () => {
   var array = [];
-  
+
   test('Beginning of array', () => {
     expect(moveUp(array, 0)).toEqual([]);
   });
-  
+
   test('End of array', () => {
     expect(moveUp(array, array.length - 1)).toEqual([]);
   });
-  
+
   test('Negative index', () => {
     expect(moveUp(array, -1)).toEqual([]);
   });
@@ -26,15 +26,15 @@ describe('moveUp on empty array', () => {
 
 describe('moveDown on empty array', () => {
   var array = [];
-  
+
   test('Beginning of array', () => {
     expect(moveDown(array, 0)).toEqual([]);
   });
-  
+
   test('End of array', () => {
     expect(moveDown(array, array.length - 1)).toEqual([]);
   });
-  
+
   test('Negative index', () => {
     expect(moveDown(array, -1)).toEqual([]);
   });
@@ -50,15 +50,15 @@ describe('moveDown on empty array', () => {
 
 describe('moveUp on single element', () => {
   var array = [1];
-  
+
   test('Beginning of array', () => {
     expect(moveUp(array, 0)).toEqual([1]);
   });
-  
+
   test('End of array', () => {
     expect(moveUp(array, array.length - 1)).toEqual([1]);
   });
-  
+
   test('Negative index', () => {
     expect(moveUp(array, -1)).toEqual([1]);
   });
@@ -74,15 +74,15 @@ describe('moveUp on single element', () => {
 
 describe('moveDown on single element', () => {
   var array = [1];
-  
+
   test('Beginning of array', () => {
     expect(moveDown(array, 0)).toEqual([1]);
   });
-  
+
   test('End of array', () => {
     expect(moveDown(array, array.length - 1)).toEqual([1]);
   });
-  
+
   test('Negative index', () => {
     expect(moveDown(array, -1)).toEqual([1]);
   });
@@ -98,15 +98,15 @@ describe('moveDown on single element', () => {
 
 describe('moveUp on two elements', () => {
   var array = [1, 2];
-  
+
   test('Beginning of array', () => {
     expect(moveUp(array, 0)).toEqual([1, 2]);
   });
-  
+
   test('End of array', () => {
     expect(moveUp(array, array.length - 1)).toEqual([2, 1]);
   });
-  
+
   test('Negative index', () => {
     expect(moveUp(array, -1)).toEqual([1, 2]);
   });
@@ -122,15 +122,15 @@ describe('moveUp on two elements', () => {
 
 describe('moveDown on two elements', () => {
   var array = [1, 2];
-  
+
   test('Beginning of array', () => {
     expect(moveDown(array, 0)).toEqual([2, 1]);
   });
-  
+
   test('End of array', () => {
     expect(moveDown(array, array.length - 1)).toEqual([1, 2]);
   });
-  
+
   test('Negative index', () => {
     expect(moveDown(array, -1)).toEqual([1, 2]);
   });
@@ -146,15 +146,15 @@ describe('moveDown on two elements', () => {
 
 describe('moveUp on many elements', () => {
   var array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-  
+
   test('Beginning of array', () => {
     expect(moveUp(array, 0)).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
   });
-  
+
   test('End of array', () => {
     expect(moveUp(array, array.length - 1)).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 9, 8]);
   });
-  
+
   test('Negative index', () => {
     expect(moveUp(array, -1)).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
   });
@@ -174,15 +174,15 @@ describe('moveUp on many elements', () => {
 
 describe('moveDown on many elements', () => {
   var array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-  
+
   test('Beginning of array', () => {
     expect(moveDown(array, 0)).toEqual([1, 0, 2, 3, 4, 5, 6, 7, 8, 9]);
   });
-  
+
   test('End of array', () => {
     expect(moveDown(array, array.length - 1)).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
   });
-  
+
   test('Negative index', () => {
     expect(moveDown(array, -1)).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
   });
