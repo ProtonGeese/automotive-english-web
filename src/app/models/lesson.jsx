@@ -45,7 +45,8 @@ export function createNewLesson(params, callback) {
       lessonId: uuid.v4(),
       title: params.title,
       description: params.description,
-      level: params.level
+      level: params.level,
+      segments: []
     }
   };
 
@@ -78,14 +79,14 @@ export function deleteLesson(params, callback) {
 }
 
 export function updateLesson(params, callback) {
-  console.log(params.level);
   var opts = {
     TableName: state.tableName,
     Item: {
       lessonId: params.lessonId,
       title: params.title,
       description: params.description,
-      level: params.level
+      level: params.level,
+      segments: params.segments || []
     }
   };
 
@@ -94,7 +95,6 @@ export function updateLesson(params, callback) {
     if (!err) {
       callback.onSuccess(data);
     } else {
-      console.log(err);
       callback.onFailure(err);
     }
   });

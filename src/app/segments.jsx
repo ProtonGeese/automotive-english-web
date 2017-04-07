@@ -11,24 +11,24 @@ import ActionDeleteForever from 'material-ui/svg-icons/action/delete-forever';
 import ImageEdit from 'material-ui/svg-icons/image/edit';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
-import { listLessons, deleteLesson } from './models/lesson.jsx';
+import { listSegments, deleteSegment } from './models/segment.jsx';
 
-class TraVerseLessons extends React.Component {
-  static link_style = {
-    'color': '#0e4e8e'
-  };
+class TraVerseSegments extends React.Component {
+  static propTypes = {
+    params: React.PropTypes.object.isRequired
+  }
 
   populateTableData = () => {
-    listLessons({
+    listSegments(this.props.params.lessonId, {
       onSuccess: (data) => {
         this.setState({
-          tableData: data.Items
+          tableData: data
         });
       },
       onFailure: () => {
         this.setState({
           snackbarOpen: true,
-          snackbarMessage: 'Error, could not fetch lesson information'
+          snackbarMessage: 'Error, could not fetch segment information'
         });
       }
     });
@@ -71,14 +71,12 @@ class TraVerseLessons extends React.Component {
   }
 
   handleDeleteConfirm = () => {
-    deleteLesson({
-      lessonId: this.state.tableData[this.state.selectedRows].lessonId
-    }, {
+    deleteSegment(this.props.params.lessonId, this.state.tableData[this.state.selectedRows].lessonId, {
       onSuccess: () => {
         this.setState({
           confirmDelete: false,
           snackbarOpen: true,
-          snackbarMessage: 'Lesson successfully deleted.'
+          snackbarMessage: 'Segment successfully deleted.'
         });
         this.populateTableData();
       },
@@ -86,7 +84,7 @@ class TraVerseLessons extends React.Component {
         this.setState({
           confirmDelete: false,
           snackbarOpen: true,
-          snackbarMessage: 'Could not delete lesson.'
+          snackbarMessage: 'Could not delete segment.'
         });
       }
     });
@@ -99,7 +97,7 @@ class TraVerseLessons extends React.Component {
   }
 
   handleEditRequest = () => {
-    hashHistory.push('/lessons/' + this.state.tableData[this.state.selectedRows].lessonId + '/edit');
+    hashHistory.push('/lessons/' + this.props.params.lessonId + '/segments/' + this.state.tableData[this.state.selectedRows].segmentId + '/edit');
   }
 
   handleRefreshRequest = () => {
@@ -144,18 +142,18 @@ class TraVerseLessons extends React.Component {
         <Toolbar>
           <ToolbarGroup>
             <FlatButton
-              label="New Lesson" primary={true}
+              label="New Segment" primary={true}
               icon={<ContentAdd/>}
-              containerElement={<Link to="/lessons/new" />}
+              containerElement={<Link to={'/lessons/' + this.props.params.lessonId + '/segments/new'} />}
             />
             <FlatButton
-              label="Edit Lesson"
+              label="Edit Segment"
               icon={<ImageEdit/>}
               disabled={!this.state.hasSelection}
               onTouchTap={this.handleEditRequest}
             />
             <FlatButton
-              label="Delete Lesson"
+              label="Delete Segment"
               icon={<ActionDeleteForever/>}
               secondary={true}
               disabled={!this.state.hasSelection}
@@ -175,7 +173,6 @@ class TraVerseLessons extends React.Component {
             <TableRow>
               <TableHeaderColumn>Title</TableHeaderColumn>
               <TableHeaderColumn>Description</TableHeaderColumn>
-              <TableHeaderColumn>Level</TableHeaderColumn>
               <TableHeaderColumn>ID</TableHeaderColumn>
             </TableRow>
           </TableHeader>
@@ -184,17 +181,9 @@ class TraVerseLessons extends React.Component {
           >
             {this.state.tableData.map( (row, index) => (
               <TableRow key={index}>
-                <TableRowColumn>
-                  <Link
-                    style={TraVerseLessons.link_style}
-                    to={'/lessons/' + row.lessonId + '/segments'}
-                  >
-                    {row.title}
-                  </Link>
-                </TableRowColumn>
+                <TableRowColumn>{row.title}</TableRowColumn>
                 <TableRowColumn>{row.description}</TableRowColumn>
-                <TableRowColumn>{row.level}</TableRowColumn>
-                <TableRowColumn>{row.lessonId}</TableRowColumn>
+                <TableRowColumn>{row.segmentId}</TableRowColumn>
               </TableRow>
             ))}
           </TableBody>
@@ -204,4 +193,4 @@ class TraVerseLessons extends React.Component {
   }
 }
 
-export default TraVerseLessons;
+export default TraVerseSegments;
