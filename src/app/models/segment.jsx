@@ -142,9 +142,71 @@ export function createNewSegment(lessonId, params, callback) {
 }
 
 export function deleteSegment(lessonId, segmentId, callback) {
+  var opts = {
+    TableName: state.segmentTableName,
+    Key: {
+      segmentId: segmentId,
+    }
+  };
 
+  var d = new DynamoDB.DocumentClient();
+  var segment = new Promise((resolve, reject) => {
+    d.delete(opts, (err, data) => {
+      if (!err) {
+        resolve(data);
+      } else {
+        reject(err);
+      }
+    });
+  });
+
+  var lesson = new Promise((resolve, reject) => {
+    getLesson({
+      lessonId: lessonId
+    }, {
+      onSuccess: resolve,
+      onFailure: reject
+    });
+  });
+
+  var result = lesson.then((response) => {
+    var segments = response.Item.segments.filter((e) => {
+      return e !== segmentId;
+    });
+
+    return new Promise((resolve, reject) => {
+      updateLesson({
+        lessonId: lessonId,
+        title: response.Item.title,
+        description: response.Item.description,
+        level: response.Item.level,
+        segments: segments
+      }, {
+        onSuccess: resolve,
+        onFailure: reject
+      });
+    });
+  });
+
+  Promise.all(segment, result).then(callback.onSuccess, callback.onFailure);
 }
 
 export function updateSegment(lessonId, segmentId, params, callback) {
+   var opts = {
+    TableName: state.segmentTableName,
+    Item: {
+      segmentId: segmentId,
+      title: params.title,
+      description: params.description
+    }
+  };
 
+  var d = new DynamoDB.DocumentClient();
+  d.put(opts, (err, data) => {
+    if (!err) {
+      callback.onSuccess(data);
+    } else {
+      callback.onFailure(err);
+    }
+  });
 }

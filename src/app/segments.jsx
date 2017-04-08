@@ -10,6 +10,7 @@ import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh';
 import ActionDeleteForever from 'material-ui/svg-icons/action/delete-forever';
 import ImageEdit from 'material-ui/svg-icons/image/edit';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import AvPlayCircleOutline from 'material-ui/svg-icons/av/play-circle-outline';
 
 import { listSegments, deleteSegment } from './models/segment.jsx';
 
@@ -71,7 +72,7 @@ class TraVerseSegments extends React.Component {
   }
 
   handleDeleteConfirm = () => {
-    deleteSegment(this.props.params.lessonId, this.state.tableData[this.state.selectedRows].lessonId, {
+    deleteSegment(this.props.params.lessonId, this.state.tableData[this.state.selectedRows].segmentId, {
       onSuccess: () => {
         this.setState({
           confirmDelete: false,
@@ -142,22 +143,28 @@ class TraVerseSegments extends React.Component {
         <Toolbar>
           <ToolbarGroup>
             <FlatButton
-              label="New Segment" primary={true}
+              label="New" primary={true}
               icon={<ContentAdd/>}
               containerElement={<Link to={'/lessons/' + this.props.params.lessonId + '/segments/new'} />}
             />
             <FlatButton
-              label="Edit Segment"
+              label="Edit"
               icon={<ImageEdit/>}
               disabled={!this.state.hasSelection}
               onTouchTap={this.handleEditRequest}
             />
             <FlatButton
-              label="Delete Segment"
+              label="Delete"
               icon={<ActionDeleteForever/>}
               secondary={true}
               disabled={!this.state.hasSelection}
               onTouchTap={this.handleDeleteRequest}
+            />
+            <FlatButton
+              label="View"
+              icon={<AvPlayCircleOutline/>}
+              secondary={true}
+              disabled={!this.state.hasSelection}
             />
             <FlatButton
               label="Refresh"

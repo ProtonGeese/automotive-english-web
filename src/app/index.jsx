@@ -23,6 +23,7 @@ import TraVerseLessonsEdit from './lessons_edit.jsx';
 
 import TraVerseSegments from './segments.jsx';
 import TraVerseSegmentsNew from './segments_new.jsx';
+import TraVerseSegmentsEdit from './segments_edit.jsx';
 
 import { isLoggedIn, resume } from './models/auth.jsx';
 
@@ -73,6 +74,7 @@ class App extends React.Component {
           <Route path='lessons/:lessonId/edit' component={TraVerseLessonsEdit}/>
           <Route path='lessons/:lessonId/segments' component={TraVerseSegments}/>
           <Route path='lessons/:lessonId/segments/new' component={TraVerseSegmentsNew}/>
+          <Route path='lessons/:lessonId/segments/:segmentId/edit' component={TraVerseSegmentsEdit}/>
         </Route>
       </Router>
     );
