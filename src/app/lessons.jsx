@@ -144,18 +144,18 @@ class TraVerseLessons extends React.Component {
         <Toolbar>
           <ToolbarGroup>
             <FlatButton
-              label="New Lesson" primary={true}
+              label="New" primary={true}
               icon={<ContentAdd/>}
               containerElement={<Link to="/lessons/new" />}
             />
             <FlatButton
-              label="Edit Lesson"
+              label="Edit"
               icon={<ImageEdit/>}
               disabled={!this.state.hasSelection}
               onTouchTap={this.handleEditRequest}
             />
             <FlatButton
-              label="Delete Lesson"
+              label="Delete"
               icon={<ActionDeleteForever/>}
               secondary={true}
               disabled={!this.state.hasSelection}

@@ -1,11 +1,7 @@
 import React from 'react';
 import Mailto from 'react-mailto';
 import { hashHistory } from 'react-router';
-import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
-import MenuItem from 'material-ui/MenuItem';
-import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 import Dialog from 'material-ui/Dialog';
@@ -55,7 +51,7 @@ class TraVerseStudents extends React.Component {
           })
         });
       },
-      onFailure: (err) => {
+      onFailure: () => {
         this.setState({
           snackbarOpen: true,
           snackbarMessage: 'Error, could not fetch user information'
@@ -219,18 +215,18 @@ class TraVerseStudents extends React.Component {
         <Toolbar>
           <ToolbarGroup>
             <FlatButton
-              label="New User" primary={true}
+              label="New" primary={true}
               icon={<ContentAdd/>}
               containerElement={<Link to="/students/new" />}
             />
             <FlatButton
-              label="Edit User"
+              label="Edit"
               icon={<ImageEdit/>}
               disabled={!this.state.hasSelection}
               onTouchTap={this.handleEditRequest}
             />
             <FlatButton
-              label="Delete User"
+              label="Delete"
               icon={<ActionDeleteForever/>}
               secondary={true}
               disabled={!this.state.hasSelection}
@@ -247,18 +243,6 @@ class TraVerseStudents extends React.Component {
               icon={<NavigationRefresh/>}
               onTouchTap={this.handleRefreshRequest}
             />
-          </ToolbarGroup>
-          <ToolbarGroup>
-            <IconMenu
-              iconButtonElement={
-                <IconButton touch={true}>
-                  <NavigationExpandMoreIcon/>
-                </IconButton>
-              }
-            >
-              <MenuItem primaryText="Export as…"/>
-              <MenuItem primaryText="Help"/>
-            </IconMenu>
           </ToolbarGroup>
         </Toolbar>
         <Table
