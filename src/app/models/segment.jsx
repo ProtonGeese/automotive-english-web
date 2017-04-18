@@ -1,10 +1,11 @@
-import { DynamoDB } from 'aws-sdk';
+import { DynamoDB, S3 } from 'aws-sdk';
 import uuid from 'uuid';
 import { getLesson, updateLesson } from './lesson.jsx';
 
 var state = {
   lessonTableName: 'Lessons',
-  segmentTableName: 'Segments'
+  segmentTableName: 'Segments',
+  bucket: 'traverse-instructor-videos'
 };
 
 export function listSegments(lessonId, callback) {
@@ -47,7 +48,10 @@ export function listSegments(lessonId, callback) {
       var d = new DynamoDB.DocumentClient();
       d.batchGet(opts, (err, data) => {
         if (!err) {
-          resolve(data);
+          resolve({
+            order: response.Item.segments,
+            segments: data.Responses.Segments
+          });
         } else {
           reject(err);
         }
@@ -56,7 +60,10 @@ export function listSegments(lessonId, callback) {
   });
 
   segments.then((response) => {
-    callback.onSuccess(response.Responses.Segments);
+    response.segments = response.segments || [];
+    callback.onSuccess(response.segments.sort((a, b) => {
+      return response.order.indexOf(a.segmentId) < response.order.indexOf(b.segmentId) ? -1 : 1;
+    }));
   }, callback.onFailure);
 }
 
@@ -92,7 +99,8 @@ export function createNewSegment(lessonId, params, callback) {
     Item: {
       segmentId: segmentId,
       title: params.title,
-      description: params.description
+      description: params.description,
+      link: params.link
     }
   };
 
@@ -203,6 +211,39 @@ export function updateSegment(lessonId, segmentId, params, callback) {
 
   var d = new DynamoDB.DocumentClient();
   d.put(opts, (err, data) => {
+    if (!err) {
+      callback.onSuccess(data);
+    } else {
+      callback.onFailure(err);
+    }
+  });
+}
+
+export function uploadSegmentVideo(video, callback) {
+  var opts = {
+    Key: uuid.v4(),
+    Bucket: state.bucket,
+    Body: video
+  };
+
+  var s3 = new S3();
+  s3.upload(opts, (err, data) => {
+    if (!err) {
+      callback.onSuccess(data);
+    } else {
+      callback.onFailure(err);
+    }
+  });
+}
+
+export function getSignedVideoUrl(link, callback) {
+  var opts = {
+    Key: link.substring(link.lastIndexOf('/') + 1),
+    Bucket: state.bucket,
+  };
+
+  var s3 = new S3();
+  s3.getSignedUrl('getObject', opts, (err, data) => {
     if (!err) {
       callback.onSuccess(data);
     } else {

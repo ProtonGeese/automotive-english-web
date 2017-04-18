@@ -7,7 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import LinearProgress from 'material-ui/LinearProgress';
 import Snackbar from 'material-ui/Snackbar';
 
-import { createNewSegment } from './models/segment.jsx';
+import { createNewSegment, uploadSegmentVideo } from './models/segment.jsx';
 
 export default class TraVerseSegmentsNew extends React.Component {
   static propTypes = {
@@ -31,6 +31,17 @@ export default class TraVerseSegmentsNew extends React.Component {
     'padding': '0'
   }
 
+  static input_style = {
+    cursor: 'pointer',
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
+    width: '100%',
+    opacity: 0
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -42,6 +53,8 @@ export default class TraVerseSegmentsNew extends React.Component {
       progressHidden: true,
       snackbarOpen: false,
       snackbarMessage: 'Error, this message should not be seen.',
+      video: null,
+      videoName: 'None'
     };
   }
 
@@ -52,25 +65,46 @@ export default class TraVerseSegmentsNew extends React.Component {
       progressHidden: false
     });
 
-    createNewSegment(this.props.params.lessonId, {
-      title: this.state.title,
-      description: this.state.description,
-    }, {
-      onSuccess: () => {
-        this.setState({
-          completed: 100,
-          snackbarOpen: true,
-          snackbarMessage: 'Segment successfully created.'
-        });
+    uploadSegmentVideo(this.state.video, {
+      onSuccess: (video) => {
+        createNewSegment(this.props.params.lessonId, {
+          title: this.state.title,
+          description: this.state.description,
+          link: video.Location
+        }, {
+          onSuccess: () => {
+            this.setState({
+              completed: 100,
+              snackbarOpen: true,
+              snackbarMessage: 'Segment successfully created.'
+            });
 
-        this.setTimeout(() => {
-          this.setState({
-            saveEnabled: true,
-            saveMessage: 'Save',
-            progressHidden: true,
-            completed: 0
-          });
-        }, 4000);
+            this.setTimeout(() => {
+              this.setState({
+                saveEnabled: true,
+                saveMessage: 'Save',
+                progressHidden: true,
+                completed: 0
+              });
+            }, 4000);
+          },
+          onFailure: () => {
+            this.setState({
+              completed: 0,
+              snackbarOpen: true,
+              snackbarMessage: 'Could not create segment.'
+            });
+
+            this.setTimeout(() => {
+              this.setState({
+                saveEnabled: true,
+                saveMessage: 'Save',
+                progressHidden: true,
+                completed: 0
+              });
+            });
+          }
+        });
       },
       onFailure: () => {
         this.setState({
@@ -119,6 +153,17 @@ export default class TraVerseSegmentsNew extends React.Component {
     });
   }
 
+  handleUploadFileChoose = (event) => {
+    this.setState({
+      video: event.target.files[0],
+      videoName: event.target.files[0].name
+    });
+  }
+
+  handleUploadPathChange = () => {
+    return;
+  } 
+
   render() {
     return (
       <div>
@@ -131,6 +176,23 @@ export default class TraVerseSegmentsNew extends React.Component {
           floatingLabelText="Description"
           onChange={this.handleDescriptionChange}
         /><br/>
+        <RaisedButton
+          label="Upload a video."
+          labelPosition="before"
+          containerElement="label"
+        >
+          <input
+            type="file" 
+            style={TraVerseSegmentsNew.input_style}
+            onChange={this.handleUploadFileChoose}
+          />
+        </RaisedButton>
+        <TextField
+          floatingLabelText="File name"
+          value={this.state.videoName}
+          onChange={this.handleUploadPathChange}
+        />
+        <br/>
         <RaisedButton
           label={this.state.saveMessage}
           primary={true}

@@ -12,12 +12,18 @@ import ImageEdit from 'material-ui/svg-icons/image/edit';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import AvPlayCircleOutline from 'material-ui/svg-icons/av/play-circle-outline';
 
-import { listSegments, deleteSegment } from './models/segment.jsx';
+import ReactPlayer from 'react-player';
+
+import { listSegments, deleteSegment, getSignedVideoUrl } from './models/segment.jsx';
 
 class TraVerseSegments extends React.Component {
   static propTypes = {
     params: React.PropTypes.object.isRequired
   }
+
+  static player_style = {
+    margin: '0 auto'
+  };
 
   populateTableData = () => {
     listSegments(this.props.params.lessonId, {
@@ -38,6 +44,9 @@ class TraVerseSegments extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      videoLink: '',
+      viewVideo: false,
+      isPlaying: false,
       hasSelection: false,
       selectedRows: [],
       confirmDelete: false,
@@ -111,6 +120,33 @@ class TraVerseSegments extends React.Component {
     });
   }
 
+  handleViewRequest = () => {
+    getSignedVideoUrl(this.state.tableData[this.state.selectedRows].link, {
+      onSuccess: (url) => {
+        console.log(url);
+        this.setState({
+          videoLink: url,
+          viewVideo: true,
+          isPlaying: true
+        });
+      },
+      onFailure: () => {
+        this.setState({
+          confirmDelete: false,
+          snackbarOpen: true,
+          snackbarMessage: 'Could not play video.'
+        });
+      }
+    });
+  }
+
+  handleViewCloseRequest = () => {
+    this.setState({
+      viewVideo: false,
+      isPlaying: false
+    });
+  }
+
   render() {
     const confirmDeleteActions = [
       <FlatButton
@@ -125,6 +161,14 @@ class TraVerseSegments extends React.Component {
       />
     ];
 
+    const viewVideoActions = [
+      <FlatButton
+        label="close"
+        primary={true}
+        onTouchTap={this.handleViewCloseRequest}
+      />
+    ];
+
     return (
       <div>
         <Dialog
@@ -133,6 +177,18 @@ class TraVerseSegments extends React.Component {
           open={this.state.confirmDelete}
         >
           <p>Are you sure? This action cannot be undone.</p>
+        </Dialog>
+        <Dialog
+          modal={false}
+          open={this.state.viewVideo}
+          actions={viewVideoActions}
+        >
+          <ReactPlayer
+            style={TraVerseSegments.player_style}
+            url={this.state.videoLink}
+            playing={this.state.isPlaying}
+            controls={true}
+          />
         </Dialog>
         <Snackbar
           open={this.state.snackbarOpen}
@@ -165,6 +221,7 @@ class TraVerseSegments extends React.Component {
               icon={<AvPlayCircleOutline/>}
               secondary={true}
               disabled={!this.state.hasSelection}
+              onTouchTap={this.handleViewRequest}
             />
             <FlatButton
               label="Refresh"
@@ -180,6 +237,7 @@ class TraVerseSegments extends React.Component {
             <TableRow>
               <TableHeaderColumn>Title</TableHeaderColumn>
               <TableHeaderColumn>Description</TableHeaderColumn>
+              <TableHeaderColumn>Link</TableHeaderColumn>
               <TableHeaderColumn>ID</TableHeaderColumn>
             </TableRow>
           </TableHeader>
@@ -190,6 +248,7 @@ class TraVerseSegments extends React.Component {
               <TableRow key={index}>
                 <TableRowColumn>{row.title}</TableRowColumn>
                 <TableRowColumn>{row.description}</TableRowColumn>
+                <TableRowColumn>{row.link}</TableRowColumn>
                 <TableRowColumn>{row.segmentId}</TableRowColumn>
               </TableRow>
             ))}
