@@ -19,7 +19,7 @@ export default class TraVerseSegmentsNew extends React.Component {
   }
 
   static check_style = {
-    'marginTop': '1rem'
+    'marginTop': '1rem',
   }
 
   static progress_style = {
@@ -42,6 +42,12 @@ export default class TraVerseSegmentsNew extends React.Component {
     opacity: 0
   }
 
+  static upload_button_style = {
+    marginRight: '12px',
+    position: 'relative',
+    top: '-4px'
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -54,7 +60,7 @@ export default class TraVerseSegmentsNew extends React.Component {
       snackbarOpen: false,
       snackbarMessage: 'Error, this message should not be seen.',
       video: null,
-      videoName: 'None'
+      videoName: ''
     };
   }
 
@@ -177,9 +183,10 @@ export default class TraVerseSegmentsNew extends React.Component {
           onChange={this.handleDescriptionChange}
         /><br/>
         <RaisedButton
-          label="Upload a video."
+          label="Upload"
           labelPosition="before"
           containerElement="label"
+          style={TraVerseSegmentsNew.upload_button_style}
         >
           <input
             type="file" 
