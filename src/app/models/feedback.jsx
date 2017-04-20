@@ -3,7 +3,7 @@ import uuid from 'uuid';
 
 var state = {
   tableName: 'Feedback',
-  bucket: 'traverse-student-videos'
+  bucket: 'traverse-user-videos'
 };
 
 export function listFeedbacks(userId, callback) {

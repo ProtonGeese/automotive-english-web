@@ -5,7 +5,7 @@ import { getLesson, updateLesson } from './lesson.jsx';
 var state = {
   lessonTableName: 'Lessons',
   segmentTableName: 'Segments',
-  bucket: 'traverse-instructor-videos'
+  bucket: 'traverse-lesson-videos'
 };
 
 export function listSegments(lessonId, callback) {
