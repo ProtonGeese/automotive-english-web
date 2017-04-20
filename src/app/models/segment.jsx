@@ -237,6 +237,11 @@ export function uploadSegmentVideo(video, callback) {
 }
 
 export function getSignedVideoUrl(link, callback) {
+  if (!link) {
+    callback.onSuccess('');
+    return;
+  }
+
   var opts = {
     Key: link.substring(link.lastIndexOf('/') + 1),
     Bucket: state.bucket,

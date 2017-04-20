@@ -263,7 +263,7 @@ class TraVerseStudents extends React.Component {
           >
             {this.state.tableData.map( (row, index) => (
               <TableRow key={index}>
-                <TableRowColumn><Link style={TraVerseStudents.link_style} to={'/students/' + row.username}>{row.username}</Link></TableRowColumn>
+                <TableRowColumn><Link style={TraVerseStudents.link_style} to={'/students/' + row.username + '/feedback'}>{row.username}</Link></TableRowColumn>
                 <TableRowColumn><Mailto style={TraVerseStudents.link_style} email={row.email}>{row.email}</Mailto></TableRowColumn>
                 <TableRowColumn>{row.enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
                 <TableRowColumn>{row.instructor}</TableRowColumn>

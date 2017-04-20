@@ -8,6 +8,9 @@ import AppContainer from './container.jsx';
 import TraVerseStudents from './students.jsx';
 import TraVerseStudentNew from './students_new.jsx';
 import TraVerseStudentEdit from './students_edit.jsx';
+import TraVerseStudentsFeedback from './students_feedback.jsx';
+import TraVerseStudentsFeedbackNew from './students_feedback_new.jsx';
+import TraVerseStudentsFeedbackRespond from './students_feedback_respond.jsx';
 
 import TraVerseInstructors from './instructors.jsx';
 import TraVerseInstructorNew from './instructors_new.jsx';
@@ -64,6 +67,9 @@ class App extends React.Component {
           <Route path="students" component={TraVerseStudents}/>
           <Route path="students/new" component={TraVerseStudentNew}/>
           <Route path="students/:userId/edit" component={TraVerseStudentEdit}/>
+          <Route path="students/:userId/feedback" component={TraVerseStudentsFeedback}/>
+          <Route path="students/:userId/feedback/new" component={TraVerseStudentsFeedbackNew}/>
+          <Route path="students/:userId/feedback/:segmentId" component={TraVerseStudentsFeedbackRespond}/>
           <Route path="instructors" component={TraVerseInstructors}/>
           <Route path="instructors/new" component={TraVerseInstructorNew}/>
           <Route path="instructors/:userId/edit" component={TraVerseInstructorEdit}/>
