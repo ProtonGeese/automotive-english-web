@@ -28,6 +28,8 @@ import TraVerseSegments from './segments.jsx';
 import TraVerseSegmentsNew from './segments_new.jsx';
 import TraVerseSegmentsEdit from './segments_edit.jsx';
 
+import TraVerseHelp from './help.jsx';
+
 import { isLoggedIn, resume } from './models/auth.jsx';
 
 // Needed for onTouchTap
@@ -64,6 +66,7 @@ class App extends React.Component {
           onChange={this.requireAuthChange}
         >
           <IndexRoute component={TraVerseHome}/>
+          <Route path="help" component={TraVerseHelp}/>
           <Route path="students" component={TraVerseStudents}/>
           <Route path="students/new" component={TraVerseStudentNew}/>
           <Route path="students/:userId/edit" component={TraVerseStudentEdit}/>
